@@ -1,0 +1,161 @@
+{
+    "name": "LandPropertyContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_property",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "unit_name"
+                },
+                {
+                    "type": "string",
+                    "name": "property_type"
+                },
+                {
+                    "type": "string",
+                    "name": "legal_identifier"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                },
+                {
+                    "type": "string",
+                    "name": "geolocation"
+                },
+                {
+                    "type": "uint64",
+                    "name": "valuation_amount"
+                },
+                {
+                    "type": "string",
+                    "name": "legal_document_hash"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a new tokenized property"
+        },
+        {
+            "name": "fractionalize_property",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "property_asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "fraction_name"
+                },
+                {
+                    "type": "string",
+                    "name": "fraction_unit_name"
+                },
+                {
+                    "type": "uint64",
+                    "name": "fraction_count"
+                },
+                {
+                    "type": "uint64",
+                    "name": "fraction_decimals"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Fractionalize a property into multiple tokens for shared ownership"
+        },
+        {
+            "name": "update_valuation",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "property_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "new_valuation"
+                },
+                {
+                    "type": "string",
+                    "name": "appraisal_document_hash"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Updates property valuation"
+        },
+        {
+            "name": "update_legal_documentation",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "property_asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "new_legal_document_hash"
+                },
+                {
+                    "type": "string",
+                    "name": "document_type"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Updates property legal documentation"
+        },
+        {
+            "name": "get_property_details",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "property_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get detailed property information"
+        },
+        {
+            "name": "transfer_property",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "property_asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "from_address"
+                },
+                {
+                    "type": "address",
+                    "name": "to_address"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Transfer ownership of the property"
+        }
+    ],
+    "networks": {},
+    "desc": "Handles tokenization of real estate with legal document integration"
+}

@@ -1,0 +1,198 @@
+{
+    "name": "CarbonCreditContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_carbon_project",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "unit_name"
+                },
+                {
+                    "type": "string",
+                    "name": "credit_type"
+                },
+                {
+                    "type": "string",
+                    "name": "carbon_registry"
+                },
+                {
+                    "type": "string",
+                    "name": "registry_project_id"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                },
+                {
+                    "type": "string",
+                    "name": "geolocation"
+                },
+                {
+                    "type": "uint64",
+                    "name": "vintage_start"
+                },
+                {
+                    "type": "uint64",
+                    "name": "vintage_end"
+                },
+                {
+                    "type": "uint64",
+                    "name": "total_offset"
+                },
+                {
+                    "type": "string",
+                    "name": "verification_methodology"
+                },
+                {
+                    "type": "string",
+                    "name": "monitoring_report_hash"
+                },
+                {
+                    "type": "string",
+                    "name": "verifier"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a new carbon credit project"
+        },
+        {
+            "name": "issue_credits",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "recipient"
+                },
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Issues carbon credits to a recipient"
+        },
+        {
+            "name": "retire_credits",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                },
+                {
+                    "type": "string",
+                    "name": "retirement_beneficiary"
+                },
+                {
+                    "type": "string",
+                    "name": "retirement_reason"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Retires carbon credits (permanently removing them from circulation)"
+        },
+        {
+            "name": "add_verification_document",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "verifier_name"
+                },
+                {
+                    "type": "uint64",
+                    "name": "verification_date"
+                },
+                {
+                    "type": "string",
+                    "name": "document_hash"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Adds verification document to existing carbon credits"
+        },
+        {
+            "name": "get_carbon_credit_details",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get detailed carbon credit information"
+        },
+        {
+            "name": "verify_carbon_credit",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Verify the authenticity of carbon credit"
+        },
+        {
+            "name": "transfer_credits",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "credit_asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "from_address"
+                },
+                {
+                    "type": "address",
+                    "name": "to_address"
+                },
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Transfer carbon credits between accounts"
+        }
+    ],
+    "networks": {},
+    "desc": "Implements the Verified Carbon Unit (VCU) Framework for climate initiatives"
+}

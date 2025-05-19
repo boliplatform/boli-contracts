@@ -1,0 +1,17 @@
+# requirements.txt for Boli Algorand smart contracts project
+
+# Core dependencies
+pyteal==0.24.1
+beaker-pyteal==1.1.1
+algokit-utils>=2.0.0,<3.0.0  # Version compatible with beaker-pyteal 1.1.1
+py-algorand-sdk==2.8.0
+algorand-python==2.8.0
+algorand-python-testing==0.4.1
+
+# Development dependencies
+python-dotenv==1.1.0
+pytest==8.3.5
+
+# Optional utilities
+puyapy
+setuptools>=65.0.0

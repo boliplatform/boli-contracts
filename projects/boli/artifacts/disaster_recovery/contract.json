@@ -1,0 +1,174 @@
+{
+    "name": "DisasterRecoveryBondContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_bond",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "unit_name"
+                },
+                {
+                    "type": "string",
+                    "name": "bond_type"
+                },
+                {
+                    "type": "string",
+                    "name": "trigger_type"
+                },
+                {
+                    "type": "uint64",
+                    "name": "trigger_threshold"
+                },
+                {
+                    "type": "uint64",
+                    "name": "coverage_amount"
+                },
+                {
+                    "type": "uint64",
+                    "name": "maturity_date"
+                },
+                {
+                    "type": "uint64",
+                    "name": "interest_rate"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                },
+                {
+                    "type": "string",
+                    "name": "geolocation"
+                },
+                {
+                    "type": "string",
+                    "name": "oracle_provider"
+                },
+                {
+                    "type": "string",
+                    "name": "bond_document_hash"
+                },
+                {
+                    "type": "uint64",
+                    "name": "total_bond_value"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a new disaster recovery bond"
+        },
+        {
+            "name": "invest_in_bond",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "investment_amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Invest in a bond"
+        },
+        {
+            "name": "process_trigger_event",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "oracle_data_hash"
+                },
+                {
+                    "type": "uint64",
+                    "name": "oracle_value"
+                },
+                {
+                    "type": "uint64",
+                    "name": "oracle_timestamp"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Process oracle data to determine if bond trigger conditions are met"
+        },
+        {
+            "name": "process_bond_payout",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "beneficiary"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Process payout for a triggered bond"
+        },
+        {
+            "name": "process_bond_maturity",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Process bond maturity payment"
+        },
+        {
+            "name": "get_bond_status",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get bond status information"
+        },
+        {
+            "name": "claim_bond_value",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Allow bondholder to claim matured bond value with interest"
+        }
+    ],
+    "networks": {},
+    "desc": "Implements climate event-triggered financing instruments for vulnerable regions"
+}

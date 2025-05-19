@@ -1,0 +1,876 @@
+#pragma version 8
+intcblock 0 1 10000 1000000 31536000
+bytecblock 0x61737365745f6964 0x636f6d706c69616e63655f737461747573 0x69735f747269676765726564 0x6d617475726974795f64617465 0x626f6e64686f6c646572735f636f756e74 0x626f6e64686f6c64657273 0x 0x6c6173745f75706461746564 0x151f7c75 0x6d65746164617461 0x616374697665 0x636f7665726167655f616d6f756e74 0x696e7465726573745f72617465 0x69737375655f64617465 0x746f74616c5f626f6e645f76616c7565 0x61737365745f63726561746f72 0x626f6e645f6e616d65 0x626f6e645f74797065 0x747269676765725f7468726573686f6c64 0x6d617475726564
+txna ApplicationArgs 0
+pushbytes 0x4c5c61ba // "create()void"
+==
+bnz main_l16
+txna ApplicationArgs 0
+pushbytes 0xb11efcb8 // "create_bond(string,string,string,string,uint64,uint64,uint64,uint64,string,string,string,string,uint64)uint64"
+==
+bnz main_l15
+txna ApplicationArgs 0
+pushbytes 0xb557736d // "invest_in_bond(uint64,uint64)void"
+==
+bnz main_l14
+txna ApplicationArgs 0
+pushbytes 0xd25fef1c // "process_trigger_event(uint64,string,uint64,uint64)bool"
+==
+bnz main_l13
+txna ApplicationArgs 0
+pushbytes 0x1979a805 // "process_bond_payout(uint64,address)void"
+==
+bnz main_l12
+txna ApplicationArgs 0
+pushbytes 0x40335f36 // "process_bond_maturity(uint64)void"
+==
+bnz main_l11
+txna ApplicationArgs 0
+pushbytes 0x715e50cd // "get_bond_status(uint64)string"
+==
+bnz main_l10
+txna ApplicationArgs 0
+pushbytes 0xda36bfb8 // "claim_bond_value(uint64)uint64"
+==
+bnz main_l9
+err
+main_l9:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub claimbondvaluecaster_15
+intc_1 // 1
+return
+main_l10:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub getbondstatuscaster_14
+intc_1 // 1
+return
+main_l11:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub processbondmaturitycaster_13
+intc_1 // 1
+return
+main_l12:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub processbondpayoutcaster_12
+intc_1 // 1
+return
+main_l13:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub processtriggereventcaster_11
+intc_1 // 1
+return
+main_l14:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub investinbondcaster_10
+intc_1 // 1
+return
+main_l15:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub createbondcaster_9
+intc_1 // 1
+return
+main_l16:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+==
+&&
+assert
+callsub createcaster_8
+intc_1 // 1
+return
+
+// create
+create_0:
+proto 0 0
+intc_1 // 1
+return
+
+// create_bond
+createbond_1:
+proto 13 1
+intc_0 // 0
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+frame_dig -7
+global LatestTimestamp
+>
+// Maturity date must be in the future
+assert
+frame_dig -1
+frame_dig -8
+>=
+// Bond value must cover trigger amount
+assert
+itxn_begin
+pushint 3 // acfg
+itxn_field TypeEnum
+intc_3 // 1000000
+itxn_field ConfigAssetTotal
+pushint 6 // 6
+itxn_field ConfigAssetDecimals
+intc_0 // 0
+itxn_field ConfigAssetDefaultFrozen
+global CurrentApplicationAddress
+itxn_field ConfigAssetManager
+txn Sender
+itxn_field ConfigAssetReserve
+global CurrentApplicationAddress
+itxn_field ConfigAssetFreeze
+global CurrentApplicationAddress
+itxn_field ConfigAssetClawback
+frame_dig -12
+extract 2 0
+itxn_field ConfigAssetUnitName
+frame_dig -13
+extract 2 0
+itxn_field ConfigAssetName
+pushbytes 0x697066733a2f2f // "ipfs://"
+frame_dig -2
+extract 2 0
+concat
+itxn_field ConfigAssetURL
+pushbytes 0x426f6c69204469736173746572205265636f7665727920426f6e643a20 // "Boli Disaster Recovery Bond: "
+frame_dig -11
+extract 2 0
+concat
+pushbytes 0x207c20547269676765723a20 // " | Trigger: "
+concat
+frame_dig -10
+extract 2 0
+concat
+pushbytes 0x207c204f7261636c653a20 // " | Oracle: "
+concat
+frame_dig -3
+extract 2 0
+concat
+itxn_field Note
+itxn_submit
+bytec_0 // "asset_id"
+itxn CreatedAssetID
+app_global_put
+bytec 15 // "asset_creator"
+txn Sender
+app_global_put
+pushbytes 0x61737365745f74797065 // "asset_type"
+pushbytes 0x64697361737465722d626f6e64 // "disaster-bond"
+app_global_put
+pushbytes 0x67656f6c6f636174696f6e // "geolocation"
+frame_dig -4
+extract 2 0
+app_global_put
+bytec 9 // "metadata"
+frame_dig -2
+extract 2 0
+app_global_put
+pushbytes 0x6a7572697364696374696f6e5f636f6465 // "jurisdiction_code"
+frame_dig -5
+extract 2 0
+app_global_put
+bytec_1 // "compliance_status"
+bytec 10 // "active"
+app_global_put
+bytec 7 // "last_updated"
+global LatestTimestamp
+app_global_put
+bytec 16 // "bond_name"
+frame_dig -13
+extract 2 0
+app_global_put
+bytec 17 // "bond_type"
+frame_dig -11
+extract 2 0
+app_global_put
+pushbytes 0x747269676765725f74797065 // "trigger_type"
+frame_dig -10
+extract 2 0
+app_global_put
+bytec 18 // "trigger_threshold"
+frame_dig -9
+app_global_put
+bytec 11 // "coverage_amount"
+frame_dig -8
+app_global_put
+bytec_3 // "maturity_date"
+frame_dig -7
+app_global_put
+bytec 12 // "interest_rate"
+frame_dig -6
+app_global_put
+bytec 13 // "issue_date"
+global LatestTimestamp
+app_global_put
+bytec_2 // "is_triggered"
+intc_0 // 0
+app_global_put
+pushbytes 0x6f7261636c655f70726f7669646572 // "oracle_provider"
+frame_dig -3
+extract 2 0
+app_global_put
+bytec 14 // "total_bond_value"
+frame_dig -1
+app_global_put
+bytec 4 // "bondholders_count"
+intc_0 // 0
+app_global_put
+itxn CreatedAssetID
+frame_bury 0
+retsub
+
+// invest_in_bond
+investinbond_2:
+proto 2 0
+intc_0 // 0
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -2
+==
+// Bond ID mismatch
+assert
+bytec_1 // "compliance_status"
+app_global_get
+bytec 10 // "active"
+==
+// Bond is not active
+assert
+bytec_2 // "is_triggered"
+app_global_get
+intc_0 // 0
+==
+// Bond has been triggered
+assert
+global LatestTimestamp
+bytec_3 // "maturity_date"
+app_global_get
+<
+// Bond has matured
+assert
+itxn_begin
+pushint 4 // axfer
+itxn_field TypeEnum
+frame_dig -2
+itxn_field XferAsset
+frame_dig -1
+intc_3 // 1000000
+*
+bytec 14 // "total_bond_value"
+app_global_get
+/
+pushint 1000000000000 // 1000000000000
+*
+intc_3 // 1000000
+/
+itxn_field AssetAmount
+txn Sender
+itxn_field AssetReceiver
+bytec 15 // "asset_creator"
+app_global_get
+itxn_field AssetSender
+itxn_submit
+bytec 5 // "bondholders"
+txn Sender
+concat
+box_len
+store 1
+store 0
+load 1
+!
+bz investinbond_2_l2
+bytec 4 // "bondholders_count"
+bytec 4 // "bondholders_count"
+app_global_get
+intc_1 // 1
++
+app_global_put
+investinbond_2_l2:
+frame_dig -1
+frame_bury 0
+bytec 5 // "bondholders"
+txn Sender
+concat
+box_del
+pop
+bytec 5 // "bondholders"
+txn Sender
+concat
+frame_dig 0
+itob
+box_put
+retsub
+
+// process_trigger_event
+processtriggerevent_3:
+proto 4 1
+intc_0 // 0
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -4
+==
+// Bond ID mismatch
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+bytec_2 // "is_triggered"
+app_global_get
+intc_0 // 0
+==
+// Bond already triggered
+assert
+bytec_1 // "compliance_status"
+app_global_get
+bytec 10 // "active"
+==
+// Bond is not active
+assert
+frame_dig -2
+bytec 18 // "trigger_threshold"
+app_global_get
+>=
+bnz processtriggerevent_3_l2
+intc_0 // 0
+!
+!
+frame_bury 0
+b processtriggerevent_3_l3
+processtriggerevent_3_l2:
+bytec_2 // "is_triggered"
+intc_1 // 1
+app_global_put
+bytec 7 // "last_updated"
+global LatestTimestamp
+app_global_put
+bytec 9 // "metadata"
+bytec 9 // "metadata"
+app_global_get
+pushbytes 0x7c747269676765723a // "|trigger:"
+concat
+frame_dig -3
+extract 2 0
+concat
+pushbytes 0x7c76616c75653a // "|value:"
+concat
+frame_dig -2
+itob
+extract 0 8
+concat
+pushbytes 0x7c74696d653a // "|time:"
+concat
+frame_dig -1
+itob
+extract 0 8
+concat
+app_global_put
+intc_1 // 1
+!
+!
+frame_bury 0
+processtriggerevent_3_l3:
+retsub
+
+// process_bond_payout
+processbondpayout_4:
+proto 2 0
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -2
+==
+// Bond ID mismatch
+assert
+bytec_2 // "is_triggered"
+app_global_get
+intc_1 // 1
+==
+// Bond not triggered
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+itxn_begin
+intc_1 // pay
+itxn_field TypeEnum
+bytec 11 // "coverage_amount"
+app_global_get
+itxn_field Amount
+frame_dig -1
+itxn_field Receiver
+global CurrentApplicationAddress
+itxn_field Sender
+itxn_submit
+bytec_1 // "compliance_status"
+pushbytes 0x70616964 // "paid"
+app_global_put
+bytec 7 // "last_updated"
+global LatestTimestamp
+app_global_put
+retsub
+
+// process_bond_maturity
+processbondmaturity_5:
+proto 1 0
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -1
+==
+// Bond ID mismatch
+assert
+global LatestTimestamp
+bytec_3 // "maturity_date"
+app_global_get
+>=
+// Bond has not matured yet
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+bytec_2 // "is_triggered"
+app_global_get
+intc_1 // 1
+==
+bnz processbondmaturity_5_l2
+bytec_1 // "compliance_status"
+bytec 19 // "matured"
+app_global_put
+b processbondmaturity_5_l3
+processbondmaturity_5_l2:
+bytec_1 // "compliance_status"
+pushbytes 0x636f6d706c65746564 // "completed"
+app_global_put
+processbondmaturity_5_l3:
+bytec 7 // "last_updated"
+global LatestTimestamp
+app_global_put
+retsub
+
+// get_bond_status
+getbondstatus_6:
+proto 1 1
+bytec 6 // ""
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -1
+==
+// Bond ID mismatch
+assert
+pushbytes 0x426f6e642049443a20 // "Bond ID: "
+bytec_0 // "asset_id"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c204e616d653a20 // " | Name: "
+concat
+bytec 16 // "bond_name"
+app_global_get
+concat
+pushbytes 0x207c20547970653a20 // " | Type: "
+concat
+bytec 17 // "bond_type"
+app_global_get
+concat
+pushbytes 0x207c205374617475733a20 // " | Status: "
+concat
+bytec_1 // "compliance_status"
+app_global_get
+concat
+pushbytes 0x207c205472696767657265643a20 // " | Triggered: "
+concat
+bytec_2 // "is_triggered"
+app_global_get
+intc_1 // 1
+==
+bnz getbondstatus_6_l2
+pushbytes 0x4e6f // "No"
+b getbondstatus_6_l3
+getbondstatus_6_l2:
+pushbytes 0x596573 // "Yes"
+getbondstatus_6_l3:
+concat
+pushbytes 0x207c204d617475726974793a20 // " | Maturity: "
+concat
+bytec_3 // "maturity_date"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c20496e766573746f72733a20 // " | Investors: "
+concat
+bytec 4 // "bondholders_count"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c20546f74616c2056616c75653a20 // " | Total Value: "
+concat
+bytec 14 // "total_bond_value"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c20436f7665726167653a20 // " | Coverage: "
+concat
+bytec 11 // "coverage_amount"
+app_global_get
+itob
+extract 0 8
+concat
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+retsub
+
+// claim_bond_value
+claimbondvalue_7:
+proto 1 1
+intc_0 // 0
+dup
+bytec_0 // "asset_id"
+app_global_get
+frame_dig -1
+==
+// Bond ID mismatch
+assert
+bytec_1 // "compliance_status"
+app_global_get
+bytec 19 // "matured"
+==
+// Bond is not matured or has been paid
+assert
+bytec_2 // "is_triggered"
+app_global_get
+intc_0 // 0
+==
+// Triggered bonds are paid to beneficiary
+assert
+bytec 5 // "bondholders"
+txn Sender
+concat
+box_len
+store 3
+store 2
+load 3
+// Not a bondholder
+assert
+bytec 5 // "bondholders"
+txn Sender
+concat
+box_get
+store 5
+store 4
+load 5
+assert
+load 4
+btoi
+frame_bury 1
+itxn_begin
+intc_1 // pay
+itxn_field TypeEnum
+frame_dig 1
+frame_dig 1
+bytec 12 // "interest_rate"
+app_global_get
+intc_2 // 10000
+/
+*
+bytec_3 // "maturity_date"
+app_global_get
+bytec 13 // "issue_date"
+app_global_get
+-
+intc_2 // 10000
+*
+intc 4 // 31536000
+/
+*
+intc_2 // 10000
+*
+intc_2 // 10000
+/
++
+itxn_field Amount
+txn Sender
+itxn_field Receiver
+global CurrentApplicationAddress
+itxn_field Sender
+itxn_submit
+bytec 5 // "bondholders"
+txn Sender
+concat
+box_del
+pop
+bytec 4 // "bondholders_count"
+bytec 4 // "bondholders_count"
+app_global_get
+intc_1 // 1
+-
+app_global_put
+frame_dig 1
+frame_dig 1
+bytec 12 // "interest_rate"
+app_global_get
+intc_2 // 10000
+/
+*
+bytec_3 // "maturity_date"
+app_global_get
+bytec 13 // "issue_date"
+app_global_get
+-
+intc_2 // 10000
+*
+intc 4 // 31536000
+/
+*
+intc_2 // 10000
+*
+intc_2 // 10000
+/
++
+frame_bury 0
+retsub
+
+// create_caster
+createcaster_8:
+proto 0 0
+callsub create_0
+retsub
+
+// create_bond_caster
+createbondcaster_9:
+proto 0 0
+intc_0 // 0
+bytec 6 // ""
+dupn 3
+intc_0 // 0
+dupn 3
+bytec 6 // ""
+dupn 3
+intc_0 // 0
+txna ApplicationArgs 1
+frame_bury 1
+txna ApplicationArgs 2
+frame_bury 2
+txna ApplicationArgs 3
+frame_bury 3
+txna ApplicationArgs 4
+frame_bury 4
+txna ApplicationArgs 5
+btoi
+frame_bury 5
+txna ApplicationArgs 6
+btoi
+frame_bury 6
+txna ApplicationArgs 7
+btoi
+frame_bury 7
+txna ApplicationArgs 8
+btoi
+frame_bury 8
+txna ApplicationArgs 9
+frame_bury 9
+txna ApplicationArgs 10
+frame_bury 10
+txna ApplicationArgs 11
+frame_bury 11
+txna ApplicationArgs 12
+frame_bury 12
+txna ApplicationArgs 13
+btoi
+frame_bury 13
+frame_dig 1
+frame_dig 2
+frame_dig 3
+frame_dig 4
+frame_dig 5
+frame_dig 6
+frame_dig 7
+frame_dig 8
+frame_dig 9
+frame_dig 10
+frame_dig 11
+frame_dig 12
+frame_dig 13
+callsub createbond_1
+frame_bury 0
+bytec 8 // 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// invest_in_bond_caster
+investinbondcaster_10:
+proto 0 0
+intc_0 // 0
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+txna ApplicationArgs 2
+btoi
+frame_bury 1
+frame_dig 0
+frame_dig 1
+callsub investinbond_2
+retsub
+
+// process_trigger_event_caster
+processtriggereventcaster_11:
+proto 0 0
+intc_0 // 0
+dup
+bytec 6 // ""
+intc_0 // 0
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+txna ApplicationArgs 2
+frame_bury 2
+txna ApplicationArgs 3
+btoi
+frame_bury 3
+txna ApplicationArgs 4
+btoi
+frame_bury 4
+frame_dig 1
+frame_dig 2
+frame_dig 3
+frame_dig 4
+callsub processtriggerevent_3
+frame_bury 0
+bytec 8 // 0x151f7c75
+pushbytes 0x00 // 0x00
+intc_0 // 0
+frame_dig 0
+setbit
+concat
+log
+retsub
+
+// process_bond_payout_caster
+processbondpayoutcaster_12:
+proto 0 0
+intc_0 // 0
+bytec 6 // ""
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+frame_dig 0
+frame_dig 1
+callsub processbondpayout_4
+retsub
+
+// process_bond_maturity_caster
+processbondmaturitycaster_13:
+proto 0 0
+intc_0 // 0
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+frame_dig 0
+callsub processbondmaturity_5
+retsub
+
+// get_bond_status_caster
+getbondstatuscaster_14:
+proto 0 0
+bytec 6 // ""
+intc_0 // 0
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+frame_dig 1
+callsub getbondstatus_6
+frame_bury 0
+bytec 8 // 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
+
+// claim_bond_value_caster
+claimbondvaluecaster_15:
+proto 0 0
+intc_0 // 0
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+frame_dig 1
+callsub claimbondvalue_7
+frame_bury 0
+bytec 8 // 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub

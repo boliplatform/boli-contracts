@@ -1,0 +1,91 @@
+{
+    "name": "ComplianceContract",
+    "methods": [
+        {
+            "name": "initialize",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "regulator_addr"
+                },
+                {
+                    "type": "address",
+                    "name": "kyc_provider_addr"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the contract with regulator and KYC provider addresses"
+        },
+        {
+            "name": "register_jurisdiction_regulator",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                },
+                {
+                    "type": "address",
+                    "name": "regulator_address"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Registers a regulator for a specific jurisdiction"
+        },
+        {
+            "name": "set_kyc_status",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "account_address"
+                },
+                {
+                    "type": "string",
+                    "name": "status"
+                },
+                {
+                    "type": "uint64",
+                    "name": "expiration_timestamp"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Sets KYC status for an account"
+        },
+        {
+            "name": "get_kyc_status",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "account_address"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Gets KYC status for an account"
+        },
+        {
+            "name": "get_regulator",
+            "args": [],
+            "returns": {
+                "type": "address"
+            },
+            "desc": "Get the regulator address"
+        },
+        {
+            "name": "get_kyc_provider",
+            "args": [],
+            "returns": {
+                "type": "address"
+            },
+            "desc": "Get the KYC provider address"
+        }
+    ],
+    "networks": {},
+    "desc": "Compliance Contract for Boli platform"
+}

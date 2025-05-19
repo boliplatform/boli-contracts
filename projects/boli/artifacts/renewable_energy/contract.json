@@ -1,0 +1,156 @@
+{
+    "name": "RenewableEnergyContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_energy_project",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "project_name"
+                },
+                {
+                    "type": "string",
+                    "name": "energy_type"
+                },
+                {
+                    "type": "uint64",
+                    "name": "installed_capacity"
+                },
+                {
+                    "type": "uint64",
+                    "name": "estimated_annual_output"
+                },
+                {
+                    "type": "uint64",
+                    "name": "project_lifespan"
+                },
+                {
+                    "type": "string",
+                    "name": "location"
+                },
+                {
+                    "type": "bool",
+                    "name": "fractionalize"
+                },
+                {
+                    "type": "uint64",
+                    "name": "fraction_count"
+                },
+                {
+                    "type": "string",
+                    "name": "technical_specs_hash"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a renewable energy infrastructure asset"
+        },
+        {
+            "name": "create_energy_production_certificates",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "project_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "production_period_start"
+                },
+                {
+                    "type": "uint64",
+                    "name": "production_period_end"
+                },
+                {
+                    "type": "uint64",
+                    "name": "energy_produced"
+                },
+                {
+                    "type": "string",
+                    "name": "meter_reading_hash"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates energy production certificates (similar to RECs)"
+        },
+        {
+            "name": "update_project_performance",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "project_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "actual_output"
+                },
+                {
+                    "type": "uint64",
+                    "name": "performance_rating"
+                },
+                {
+                    "type": "string",
+                    "name": "maintenance_status"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Updates project performance metrics"
+        },
+        {
+            "name": "get_energy_project_details",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "project_asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get detailed energy project information"
+        },
+        {
+            "name": "transfer_energy_project",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "project_asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "from_address"
+                },
+                {
+                    "type": "address",
+                    "name": "to_address"
+                },
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Transfer ownership of the energy project"
+        }
+    ],
+    "networks": {},
+    "desc": "Handles tokenization of renewable energy projects and their output"
+}

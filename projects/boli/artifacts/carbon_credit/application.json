@@ -1,0 +1,355 @@
+{
+    "hints": {
+        "create()void": {
+            "call_config": {
+                "no_op": "CREATE"
+            }
+        },
+        "create_carbon_project(string,string,string,string,string,string,string,uint64,uint64,uint64,string,string,string)uint64": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "issue_credits(uint64,address,uint64)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "retire_credits(uint64,uint64,string,string)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "add_verification_document(uint64,string,uint64,string)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_carbon_credit_details(uint64)string": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "verify_carbon_credit(uint64)bool": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "transfer_credits(uint64,address,address,uint64)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMSA0CmJ5dGVjYmxvY2sgMHggMHg2MTczNzM2NTc0NWY2OTY0IDB4NmQ2NTc0NjE2NDYxNzQ2MSAweDcyNjU2ZDYxNjk2ZTY5NmU2NzVmNmY2NjY2NzM2NTc0IDB4NmM2MTczNzQ1Zjc1NzA2NDYxNzQ2NTY0IDB4NjM2ZjZkNzA2YzY5NjE2ZTYzNjU1ZjczNzQ2MTc0NzU3MyAweDc2NjU3MjY5NjY2OTY1NjQgMHg3NjY1NzI2OTY2Njk2NTcyIDB4M2EgMHgxNTFmN2M3NSAweDIwN2MyMDUyNjU2NzY5NzM3NDcyNzkzYTIwIDB4MjA3YzIwNTA3MjZmNmE2NTYzNzQyMDQ5NDQzYTIwIDB4MjA3YzIwNTY2NTcyNjk2NjY5NjU2NDIwNjI3OTNhMjAgMHg2MTczNzM2NTc0NWY2MzcyNjU2MTc0NmY3MiAweDZhNzU3MjY5NzM2NDY5NjM3NDY5NmY2ZTVmNjM2ZjY0NjUgMHg2MzcyNjU2NDY5NzQ1Zjc0Nzk3MDY1IDB4NjM2MTcyNjI2ZjZlNWY3MjY1Njc2OTczNzQ3Mjc5IDB4NzI2NTY3Njk3Mzc0NzI3OTVmNzA3MjZmNmE2NTYzNzQ1ZjY5NjQgMHg3NjY5NmU3NDYxNjc2NTVmNzM3NDYxNzI3NCAweDc2Njk2ZTc0NjE2NzY1NWY2NTZlNjQgMHg3NDZmNzQ2MTZjNWY2MzYxNzI2MjZmNmU1ZjZmNjY2NjczNjU3NAp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDRjNWM2MWJhIC8vICJjcmVhdGUoKXZvaWQiCj09CmJueiBtYWluX2wxNgp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGM4M2JlZjBhIC8vICJjcmVhdGVfY2FyYm9uX3Byb2plY3Qoc3RyaW5nLHN0cmluZyxzdHJpbmcsc3RyaW5nLHN0cmluZyxzdHJpbmcsc3RyaW5nLHVpbnQ2NCx1aW50NjQsdWludDY0LHN0cmluZyxzdHJpbmcsc3RyaW5nKXVpbnQ2NCIKPT0KYm56IG1haW5fbDE1CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ZmZhYTIxZDYgLy8gImlzc3VlX2NyZWRpdHModWludDY0LGFkZHJlc3MsdWludDY0KXZvaWQiCj09CmJueiBtYWluX2wxNAp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDU3OGExMzk0IC8vICJyZXRpcmVfY3JlZGl0cyh1aW50NjQsdWludDY0LHN0cmluZyxzdHJpbmcpdm9pZCIKPT0KYm56IG1haW5fbDEzCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4OTliZGFlYjcgLy8gImFkZF92ZXJpZmljYXRpb25fZG9jdW1lbnQodWludDY0LHN0cmluZyx1aW50NjQsc3RyaW5nKXZvaWQiCj09CmJueiBtYWluX2wxMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGI4N2I3OGNhIC8vICJnZXRfY2FyYm9uX2NyZWRpdF9kZXRhaWxzKHVpbnQ2NClzdHJpbmciCj09CmJueiBtYWluX2wxMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDk3ZWUxN2JjIC8vICJ2ZXJpZnlfY2FyYm9uX2NyZWRpdCh1aW50NjQpYm9vbCIKPT0KYm56IG1haW5fbDEwCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ZWY0YmM1NTMgLy8gInRyYW5zZmVyX2NyZWRpdHModWludDY0LGFkZHJlc3MsYWRkcmVzcyx1aW50NjQpdm9pZCIKPT0KYm56IG1haW5fbDkKZXJyCm1haW5fbDk6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgdHJhbnNmZXJjcmVkaXRzY2FzdGVyXzE1CmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiB2ZXJpZnljYXJib25jcmVkaXRjYXN0ZXJfMTQKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDExOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdldGNhcmJvbmNyZWRpdGRldGFpbHNjYXN0ZXJfMTMKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDEyOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGFkZHZlcmlmaWNhdGlvbmRvY3VtZW50Y2FzdGVyXzEyCmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMzoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiByZXRpcmVjcmVkaXRzY2FzdGVyXzExCmludGNfMSAvLyAxCnJldHVybgptYWluX2wxNDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBpc3N1ZWNyZWRpdHNjYXN0ZXJfMTAKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDE1Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGNyZWF0ZWNhcmJvbnByb2plY3RjYXN0ZXJfOQppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sMTY6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKPT0KJiYKYXNzZXJ0CmNhbGxzdWIgY3JlYXRlY2FzdGVyXzgKaW50Y18xIC8vIDEKcmV0dXJuCgovLyBjcmVhdGUKY3JlYXRlXzA6CnByb3RvIDAgMAppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIGNyZWF0ZV9jYXJib25fcHJvamVjdApjcmVhdGVjYXJib25wcm9qZWN0XzE6CnByb3RvIDEzIDEKaW50Y18wIC8vIDAKdHhuIFNlbmRlcgpnbG9iYWwgQ3JlYXRvckFkZHJlc3MKPT0KLy8gT25seSB0aGUgY3JlYXRvciBjYW4gcGVyZm9ybSB0aGlzIGFjdGlvbgphc3NlcnQKZnJhbWVfZGlnIC02CmZyYW1lX2RpZyAtNQo8Ci8vIEludmFsaWQgdmludGFnZSBwZXJpb2QKYXNzZXJ0CmZyYW1lX2RpZyAtNAppbnRjXzAgLy8gMAo+Ci8vIFRvdGFsIG9mZnNldCBtdXN0IGJlIHBvc2l0aXZlCmFzc2VydAppdHhuX2JlZ2luCnB1c2hpbnQgMyAvLyBhY2ZnCml0eG5fZmllbGQgVHlwZUVudW0KZnJhbWVfZGlnIC00Cml0eG5fZmllbGQgQ29uZmlnQXNzZXRUb3RhbAppbnRjXzAgLy8gMAppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0RGVjaW1hbHMKaW50Y18wIC8vIDAKaXR4bl9maWVsZCBDb25maWdBc3NldERlZmF1bHRGcm96ZW4KZ2xvYmFsIEN1cnJlbnRBcHBsaWNhdGlvbkFkZHJlc3MKaXR4bl9maWVsZCBDb25maWdBc3NldE1hbmFnZXIKdHhuIFNlbmRlcgppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0UmVzZXJ2ZQpnbG9iYWwgQ3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwppdHhuX2ZpZWxkIENvbmZpZ0Fzc2V0RnJlZXplCmdsb2JhbCBDdXJyZW50QXBwbGljYXRpb25BZGRyZXNzCml0eG5fZmllbGQgQ29uZmlnQXNzZXRDbGF3YmFjawpmcmFtZV9kaWcgLTEyCmV4dHJhY3QgMiAwCml0eG5fZmllbGQgQ29uZmlnQXNzZXRVbml0TmFtZQpmcmFtZV9kaWcgLTEzCmV4dHJhY3QgMiAwCml0eG5fZmllbGQgQ29uZmlnQXNzZXROYW1lCnB1c2hieXRlcyAweDY5NzA2NjczM2EyZjJmIC8vICJpcGZzOi8vIgpmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKY29uY2F0Cml0eG5fZmllbGQgQ29uZmlnQXNzZXRVUkwKcHVzaGJ5dGVzIDB4NDI2ZjZjNjkyMDQzNjE3MjYyNmY2ZTIwNDM3MjY1NjQ2OTc0M2EyMCAvLyAiQm9saSBDYXJib24gQ3JlZGl0OiAiCmZyYW1lX2RpZyAtMTEKZXh0cmFjdCAyIDAKY29uY2F0CmJ5dGVjIDEwIC8vICIgfCBSZWdpc3RyeTogIgpjb25jYXQKZnJhbWVfZGlnIC0xMApleHRyYWN0IDIgMApjb25jYXQKYnl0ZWMgMTEgLy8gIiB8IFByb2plY3QgSUQ6ICIKY29uY2F0CmZyYW1lX2RpZyAtOQpleHRyYWN0IDIgMApjb25jYXQKYnl0ZWMgMTIgLy8gIiB8IFZlcmlmaWVkIGJ5OiAiCmNvbmNhdApmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKY29uY2F0Cml0eG5fZmllbGQgTm90ZQppdHhuX3N1Ym1pdApieXRlY18xIC8vICJhc3NldF9pZCIKaXR4biBDcmVhdGVkQXNzZXRJRAphcHBfZ2xvYmFsX3B1dApieXRlYyAxMyAvLyAiYXNzZXRfY3JlYXRvciIKdHhuIFNlbmRlcgphcHBfZ2xvYmFsX3B1dApwdXNoYnl0ZXMgMHg2MTczNzM2NTc0NWY3NDc5NzA2NSAvLyAiYXNzZXRfdHlwZSIKcHVzaGJ5dGVzIDB4NjM2MTcyNjI2ZjZlMmQ2MzcyNjU2NDY5NzQgLy8gImNhcmJvbi1jcmVkaXQiCmFwcF9nbG9iYWxfcHV0CnB1c2hieXRlcyAweDY3NjU2ZjZjNmY2MzYxNzQ2OTZmNmUgLy8gImdlb2xvY2F0aW9uIgpmcmFtZV9kaWcgLTcKZXh0cmFjdCAyIDAKYXBwX2dsb2JhbF9wdXQKYnl0ZWNfMiAvLyAibWV0YWRhdGEiCmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlYyAxNCAvLyAianVyaXNkaWN0aW9uX2NvZGUiCmZyYW1lX2RpZyAtOApleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlYyA1IC8vICJjb21wbGlhbmNlX3N0YXR1cyIKYnl0ZWMgNiAvLyAidmVyaWZpZWQiCmFwcF9nbG9iYWxfcHV0CmJ5dGVjIDQgLy8gImxhc3RfdXBkYXRlZCIKZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAphcHBfZ2xvYmFsX3B1dApieXRlYyAxNSAvLyAiY3JlZGl0X3R5cGUiCmZyYW1lX2RpZyAtMTEKZXh0cmFjdCAyIDAKYXBwX2dsb2JhbF9wdXQKYnl0ZWMgMTYgLy8gImNhcmJvbl9yZWdpc3RyeSIKZnJhbWVfZGlnIC0xMApleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlYyAxNyAvLyAicmVnaXN0cnlfcHJvamVjdF9pZCIKZnJhbWVfZGlnIC05CmV4dHJhY3QgMiAwCmFwcF9nbG9iYWxfcHV0CmJ5dGVjIDE4IC8vICJ2aW50YWdlX3N0YXJ0IgpmcmFtZV9kaWcgLTYKYXBwX2dsb2JhbF9wdXQKYnl0ZWMgMTkgLy8gInZpbnRhZ2VfZW5kIgpmcmFtZV9kaWcgLTUKYXBwX2dsb2JhbF9wdXQKYnl0ZWMgMjAgLy8gInRvdGFsX2NhcmJvbl9vZmZzZXQiCmZyYW1lX2RpZyAtNAphcHBfZ2xvYmFsX3B1dApieXRlY18zIC8vICJyZW1haW5pbmdfb2Zmc2V0IgpmcmFtZV9kaWcgLTQKYXBwX2dsb2JhbF9wdXQKcHVzaGJ5dGVzIDB4NzY2NTcyNjk2NjY5NjM2MTc0Njk2ZjZlNWY2ZDY1NzQ2ODZmNjQ2ZjZjNmY2Nzc5IC8vICJ2ZXJpZmljYXRpb25fbWV0aG9kb2xvZ3kiCmZyYW1lX2RpZyAtMwpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlYyA3IC8vICJ2ZXJpZmllciIKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmFwcF9nbG9iYWxfcHV0Cml0eG4gQ3JlYXRlZEFzc2V0SUQKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gaXNzdWVfY3JlZGl0cwppc3N1ZWNyZWRpdHNfMjoKcHJvdG8gMyAwCmJ5dGVjXzEgLy8gImFzc2V0X2lkIgphcHBfZ2xvYmFsX2dldApmcmFtZV9kaWcgLTMKPT0KLy8gQ3JlZGl0IElEIG1pc21hdGNoCmFzc2VydAp0eG4gU2VuZGVyCmdsb2JhbCBDcmVhdG9yQWRkcmVzcwo9PQovLyBPbmx5IHRoZSBjcmVhdG9yIGNhbiBwZXJmb3JtIHRoaXMgYWN0aW9uCmFzc2VydApieXRlY18zIC8vICJyZW1haW5pbmdfb2Zmc2V0IgphcHBfZ2xvYmFsX2dldApmcmFtZV9kaWcgLTEKPj0KLy8gSW5zdWZmaWNpZW50IGNyZWRpdHMgcmVtYWluaW5nCmFzc2VydAppdHhuX2JlZ2luCmludGNfMiAvLyBheGZlcgppdHhuX2ZpZWxkIFR5cGVFbnVtCmZyYW1lX2RpZyAtMwppdHhuX2ZpZWxkIFhmZXJBc3NldApmcmFtZV9kaWcgLTEKaXR4bl9maWVsZCBBc3NldEFtb3VudApmcmFtZV9kaWcgLTIKaXR4bl9maWVsZCBBc3NldFJlY2VpdmVyCmJ5dGVjIDEzIC8vICJhc3NldF9jcmVhdG9yIgphcHBfZ2xvYmFsX2dldAppdHhuX2ZpZWxkIEFzc2V0U2VuZGVyCml0eG5fc3VibWl0CmJ5dGVjXzMgLy8gInJlbWFpbmluZ19vZmZzZXQiCmJ5dGVjXzMgLy8gInJlbWFpbmluZ19vZmZzZXQiCmFwcF9nbG9iYWxfZ2V0CmZyYW1lX2RpZyAtMQotCmFwcF9nbG9iYWxfcHV0CmJ5dGVjIDQgLy8gImxhc3RfdXBkYXRlZCIKZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAphcHBfZ2xvYmFsX3B1dApyZXRzdWIKCi8vIHJldGlyZV9jcmVkaXRzCnJldGlyZWNyZWRpdHNfMzoKcHJvdG8gNCAwCmJ5dGVjXzEgLy8gImFzc2V0X2lkIgphcHBfZ2xvYmFsX2dldApmcmFtZV9kaWcgLTQKPT0KLy8gQ3JlZGl0IElEIG1pc21hdGNoCmFzc2VydAppdHhuX2JlZ2luCmludGNfMiAvLyBheGZlcgppdHhuX2ZpZWxkIFR5cGVFbnVtCmZyYW1lX2RpZyAtNAppdHhuX2ZpZWxkIFhmZXJBc3NldApmcmFtZV9kaWcgLTMKaXR4bl9maWVsZCBBc3NldEFtb3VudApnbG9iYWwgQ3VycmVudEFwcGxpY2F0aW9uQWRkcmVzcwppdHhuX2ZpZWxkIEFzc2V0UmVjZWl2ZXIKdHhuIFNlbmRlcgppdHhuX2ZpZWxkIEFzc2V0U2VuZGVyCnB1c2hieXRlcyAweDUyNjU3NDY5NzI2NTY0M2EyMCAvLyAiUmV0aXJlZDogIgpmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKY29uY2F0CnB1c2hieXRlcyAweDIwN2MyMDQyNjU2ZTY1NjY2OTYzNjk2MTcyNzkzYTIwIC8vICIgfCBCZW5lZmljaWFyeTogIgpjb25jYXQKZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCmNvbmNhdApwdXNoYnl0ZXMgMHgyMDdjMjA0NDYxNzQ2NTNhMjAgLy8gIiB8IERhdGU6ICIKY29uY2F0Cmdsb2JhbCBMYXRlc3RUaW1lc3RhbXAKaXRvYgpleHRyYWN0IDAgOApjb25jYXQKaXR4bl9maWVsZCBOb3RlCml0eG5fc3VibWl0CmJ5dGVjXzIgLy8gIm1ldGFkYXRhIgpieXRlY18yIC8vICJtZXRhZGF0YSIKYXBwX2dsb2JhbF9nZXQKcHVzaGJ5dGVzIDB4N2M3MjY1NzQ2OTcyNjU2ZDY1NmU3NDNhIC8vICJ8cmV0aXJlbWVudDoiCmNvbmNhdApmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKY29uY2F0CmJ5dGVjIDggLy8gIjoiCmNvbmNhdApmcmFtZV9kaWcgLTMKaXRvYgpleHRyYWN0IDAgOApjb25jYXQKYnl0ZWMgOCAvLyAiOiIKY29uY2F0Cmdsb2JhbCBMYXRlc3RUaW1lc3RhbXAKaXRvYgpleHRyYWN0IDAgOApjb25jYXQKYXBwX2dsb2JhbF9wdXQKcmV0c3ViCgovLyBhZGRfdmVyaWZpY2F0aW9uX2RvY3VtZW50CmFkZHZlcmlmaWNhdGlvbmRvY3VtZW50XzQ6CnByb3RvIDQgMApieXRlY18xIC8vICJhc3NldF9pZCIKYXBwX2dsb2JhbF9nZXQKZnJhbWVfZGlnIC00Cj09Ci8vIENyZWRpdCBJRCBtaXNtYXRjaAphc3NlcnQKdHhuIFNlbmRlcgpnbG9iYWwgQ3JlYXRvckFkZHJlc3MKPT0KLy8gT25seSB0aGUgY3JlYXRvciBjYW4gcGVyZm9ybSB0aGlzIGFjdGlvbgphc3NlcnQKYnl0ZWMgNyAvLyAidmVyaWZpZXIiCmZyYW1lX2RpZyAtMwpleHRyYWN0IDIgMAphcHBfZ2xvYmFsX3B1dApieXRlY18yIC8vICJtZXRhZGF0YSIKYnl0ZWNfMiAvLyAibWV0YWRhdGEiCmFwcF9nbG9iYWxfZ2V0CnB1c2hieXRlcyAweDdjNzY2NTcyNjk2NjY5NjM2MTc0Njk2ZjZlM2EgLy8gInx2ZXJpZmljYXRpb246Igpjb25jYXQKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmNvbmNhdApieXRlYyA4IC8vICI6Igpjb25jYXQKZnJhbWVfZGlnIC0yCml0b2IKZXh0cmFjdCAwIDgKY29uY2F0CmFwcF9nbG9iYWxfcHV0CmJ5dGVjIDQgLy8gImxhc3RfdXBkYXRlZCIKZ2xvYmFsIExhdGVzdFRpbWVzdGFtcAphcHBfZ2xvYmFsX3B1dApyZXRzdWIKCi8vIGdldF9jYXJib25fY3JlZGl0X2RldGFpbHMKZ2V0Y2FyYm9uY3JlZGl0ZGV0YWlsc181Ogpwcm90byAxIDEKYnl0ZWNfMCAvLyAiIgpieXRlY18xIC8vICJhc3NldF9pZCIKYXBwX2dsb2JhbF9nZXQKZnJhbWVfZGlnIC0xCj09Ci8vIENyZWRpdCBJRCBtaXNtYXRjaAphc3NlcnQKcHVzaGJ5dGVzIDB4NDM2MTcyNjI2ZjZlMjA0MzcyNjU2NDY5NzQyMDQ5NDQzYTIwIC8vICJDYXJib24gQ3JlZGl0IElEOiAiCmJ5dGVjXzEgLy8gImFzc2V0X2lkIgphcHBfZ2xvYmFsX2dldAppdG9iCmV4dHJhY3QgMCA4CmNvbmNhdApwdXNoYnl0ZXMgMHgyMDdjMjA1NDc5NzA2NTNhMjAgLy8gIiB8IFR5cGU6ICIKY29uY2F0CmJ5dGVjIDE1IC8vICJjcmVkaXRfdHlwZSIKYXBwX2dsb2JhbF9nZXQKY29uY2F0CmJ5dGVjIDEwIC8vICIgfCBSZWdpc3RyeTogIgpjb25jYXQKYnl0ZWMgMTYgLy8gImNhcmJvbl9yZWdpc3RyeSIKYXBwX2dsb2JhbF9nZXQKY29uY2F0CmJ5dGVjIDExIC8vICIgfCBQcm9qZWN0IElEOiAiCmNvbmNhdApieXRlYyAxNyAvLyAicmVnaXN0cnlfcHJvamVjdF9pZCIKYXBwX2dsb2JhbF9nZXQKY29uY2F0CnB1c2hieXRlcyAweDIwN2MyMDU2Njk2ZTc0NjE2NzY1M2EyMCAvLyAiIHwgVmludGFnZTogIgpjb25jYXQKYnl0ZWMgMTggLy8gInZpbnRhZ2Vfc3RhcnQiCmFwcF9nbG9iYWxfZ2V0Cml0b2IKZXh0cmFjdCAwIDgKY29uY2F0CnB1c2hieXRlcyAweDJkIC8vICItIgpjb25jYXQKYnl0ZWMgMTkgLy8gInZpbnRhZ2VfZW5kIgphcHBfZ2xvYmFsX2dldAppdG9iCmV4dHJhY3QgMCA4CmNvbmNhdApwdXNoYnl0ZXMgMHgyMDdjMjA1NDZmNzQ2MTZjMjA0ZjY2NjY3MzY1NzQzYTIwIC8vICIgfCBUb3RhbCBPZmZzZXQ6ICIKY29uY2F0CmJ5dGVjIDIwIC8vICJ0b3RhbF9jYXJib25fb2Zmc2V0IgphcHBfZ2xvYmFsX2dldAppdG9iCmV4dHJhY3QgMCA4CmNvbmNhdApwdXNoYnl0ZXMgMHgyMDdjMjA1MjY1NmQ2MTY5NmU2OTZlNjczYTIwIC8vICIgfCBSZW1haW5pbmc6ICIKY29uY2F0CmJ5dGVjXzMgLy8gInJlbWFpbmluZ19vZmZzZXQiCmFwcF9nbG9iYWxfZ2V0Cml0b2IKZXh0cmFjdCAwIDgKY29uY2F0CmJ5dGVjIDEyIC8vICIgfCBWZXJpZmllZCBieTogIgpjb25jYXQKYnl0ZWMgNyAvLyAidmVyaWZpZXIiCmFwcF9nbG9iYWxfZ2V0CmNvbmNhdApwdXNoYnl0ZXMgMHgyMDdjMjA0YTc1NzI2OTczNjQ2OTYzNzQ2OTZmNmUzYTIwIC8vICIgfCBKdXJpc2RpY3Rpb246ICIKY29uY2F0CmJ5dGVjIDE0IC8vICJqdXJpc2RpY3Rpb25fY29kZSIKYXBwX2dsb2JhbF9nZXQKY29uY2F0CmZyYW1lX2J1cnkgMApmcmFtZV9kaWcgMApsZW4KaXRvYgpleHRyYWN0IDYgMApmcmFtZV9kaWcgMApjb25jYXQKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gdmVyaWZ5X2NhcmJvbl9jcmVkaXQKdmVyaWZ5Y2FyYm9uY3JlZGl0XzY6CnByb3RvIDEgMQppbnRjXzAgLy8gMApieXRlY18xIC8vICJhc3NldF9pZCIKYXBwX2dsb2JhbF9nZXQKZnJhbWVfZGlnIC0xCj09Ci8vIENyZWRpdCBJRCBtaXNtYXRjaAphc3NlcnQKYnl0ZWMgNSAvLyAiY29tcGxpYW5jZV9zdGF0dXMiCmFwcF9nbG9iYWxfZ2V0CmJ5dGVjIDYgLy8gInZlcmlmaWVkIgo9PQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gdHJhbnNmZXJfY3JlZGl0cwp0cmFuc2ZlcmNyZWRpdHNfNzoKcHJvdG8gNCAwCmJ5dGVjXzEgLy8gImFzc2V0X2lkIgphcHBfZ2xvYmFsX2dldApmcmFtZV9kaWcgLTQKPT0KLy8gQ3JlZGl0IElEIG1pc21hdGNoCmFzc2VydApieXRlYyA1IC8vICJjb21wbGlhbmNlX3N0YXR1cyIKYXBwX2dsb2JhbF9nZXQKYnl0ZWMgNiAvLyAidmVyaWZpZWQiCj09Ci8vIENyZWRpdHMgYXJlIG5vdCB2ZXJpZmllZAphc3NlcnQKdHhuIFNlbmRlcgpmcmFtZV9kaWcgLTMKPT0KLy8gU2VuZGVyIG11c3QgYmUgdGhlIGNyZWRpdCBvd25lcgphc3NlcnQKaXR4bl9iZWdpbgppbnRjXzIgLy8gYXhmZXIKaXR4bl9maWVsZCBUeXBlRW51bQpmcmFtZV9kaWcgLTQKaXR4bl9maWVsZCBYZmVyQXNzZXQKZnJhbWVfZGlnIC0xCml0eG5fZmllbGQgQXNzZXRBbW91bnQKZnJhbWVfZGlnIC0yCml0eG5fZmllbGQgQXNzZXRSZWNlaXZlcgpmcmFtZV9kaWcgLTMKaXR4bl9maWVsZCBBc3NldFNlbmRlcgppdHhuX3N1Ym1pdApieXRlYyA0IC8vICJsYXN0X3VwZGF0ZWQiCmdsb2JhbCBMYXRlc3RUaW1lc3RhbXAKYXBwX2dsb2JhbF9wdXQKcmV0c3ViCgovLyBjcmVhdGVfY2FzdGVyCmNyZWF0ZWNhc3Rlcl84Ogpwcm90byAwIDAKY2FsbHN1YiBjcmVhdGVfMApyZXRzdWIKCi8vIGNyZWF0ZV9jYXJib25fcHJvamVjdF9jYXN0ZXIKY3JlYXRlY2FyYm9ucHJvamVjdGNhc3Rlcl85Ogpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgpkdXBuIDYKaW50Y18wIC8vIDAKZHVwbiAyCmJ5dGVjXzAgLy8gIiIKZHVwbiAyCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAxCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKZnJhbWVfYnVyeSAyCnR4bmEgQXBwbGljYXRpb25BcmdzIDMKZnJhbWVfYnVyeSAzCnR4bmEgQXBwbGljYXRpb25BcmdzIDQKZnJhbWVfYnVyeSA0CnR4bmEgQXBwbGljYXRpb25BcmdzIDUKZnJhbWVfYnVyeSA1CnR4bmEgQXBwbGljYXRpb25BcmdzIDYKZnJhbWVfYnVyeSA2CnR4bmEgQXBwbGljYXRpb25BcmdzIDcKZnJhbWVfYnVyeSA3CnR4bmEgQXBwbGljYXRpb25BcmdzIDgKYnRvaQpmcmFtZV9idXJ5IDgKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgOQpidG9pCmZyYW1lX2J1cnkgOQp0eG5hIEFwcGxpY2F0aW9uQXJncyAxMApidG9pCmZyYW1lX2J1cnkgMTAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMTEKZnJhbWVfYnVyeSAxMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAxMgpmcmFtZV9idXJ5IDEyCnR4bmEgQXBwbGljYXRpb25BcmdzIDEzCmZyYW1lX2J1cnkgMTMKZnJhbWVfZGlnIDEKZnJhbWVfZGlnIDIKZnJhbWVfZGlnIDMKZnJhbWVfZGlnIDQKZnJhbWVfZGlnIDUKZnJhbWVfZGlnIDYKZnJhbWVfZGlnIDcKZnJhbWVfZGlnIDgKZnJhbWVfZGlnIDkKZnJhbWVfZGlnIDEwCmZyYW1lX2RpZyAxMQpmcmFtZV9kaWcgMTIKZnJhbWVfZGlnIDEzCmNhbGxzdWIgY3JlYXRlY2FyYm9ucHJvamVjdF8xCmZyYW1lX2J1cnkgMApieXRlYyA5IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKaXRvYgpjb25jYXQKbG9nCnJldHN1YgoKLy8gaXNzdWVfY3JlZGl0c19jYXN0ZXIKaXNzdWVjcmVkaXRzY2FzdGVyXzEwOgpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmJ0b2kKZnJhbWVfYnVyeSAwCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKZnJhbWVfYnVyeSAxCnR4bmEgQXBwbGljYXRpb25BcmdzIDMKYnRvaQpmcmFtZV9idXJ5IDIKZnJhbWVfZGlnIDAKZnJhbWVfZGlnIDEKZnJhbWVfZGlnIDIKY2FsbHN1YiBpc3N1ZWNyZWRpdHNfMgpyZXRzdWIKCi8vIHJldGlyZV9jcmVkaXRzX2Nhc3RlcgpyZXRpcmVjcmVkaXRzY2FzdGVyXzExOgpwcm90byAwIDAKaW50Y18wIC8vIDAKZHVwCmJ5dGVjXzAgLy8gIiIKZHVwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKYnRvaQpmcmFtZV9idXJ5IDAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpidG9pCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAzCmZyYW1lX2J1cnkgMgp0eG5hIEFwcGxpY2F0aW9uQXJncyA0CmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpmcmFtZV9kaWcgMwpjYWxsc3ViIHJldGlyZWNyZWRpdHNfMwpyZXRzdWIKCi8vIGFkZF92ZXJpZmljYXRpb25fZG9jdW1lbnRfY2FzdGVyCmFkZHZlcmlmaWNhdGlvbmRvY3VtZW50Y2FzdGVyXzEyOgpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKYnRvaQpmcmFtZV9idXJ5IDAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpmcmFtZV9idXJ5IDEKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwpidG9pCmZyYW1lX2J1cnkgMgp0eG5hIEFwcGxpY2F0aW9uQXJncyA0CmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpmcmFtZV9kaWcgMwpjYWxsc3ViIGFkZHZlcmlmaWNhdGlvbmRvY3VtZW50XzQKcmV0c3ViCgovLyBnZXRfY2FyYm9uX2NyZWRpdF9kZXRhaWxzX2Nhc3RlcgpnZXRjYXJib25jcmVkaXRkZXRhaWxzY2FzdGVyXzEzOgpwcm90byAwIDAKYnl0ZWNfMCAvLyAiIgppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmJ0b2kKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCmNhbGxzdWIgZ2V0Y2FyYm9uY3JlZGl0ZGV0YWlsc181CmZyYW1lX2J1cnkgMApieXRlYyA5IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKY29uY2F0CmxvZwpyZXRzdWIKCi8vIHZlcmlmeV9jYXJib25fY3JlZGl0X2Nhc3Rlcgp2ZXJpZnljYXJib25jcmVkaXRjYXN0ZXJfMTQ6CnByb3RvIDAgMAppbnRjXzAgLy8gMApkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpidG9pCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIHZlcmlmeWNhcmJvbmNyZWRpdF82CmZyYW1lX2J1cnkgMApieXRlYyA5IC8vIDB4MTUxZjdjNzUKcHVzaGJ5dGVzIDB4MDAgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgMApzZXRiaXQKY29uY2F0CmxvZwpyZXRzdWIKCi8vIHRyYW5zZmVyX2NyZWRpdHNfY2FzdGVyCnRyYW5zZmVyY3JlZGl0c2Nhc3Rlcl8xNToKcHJvdG8gMCAwCmludGNfMCAvLyAwCmJ5dGVjXzAgLy8gIiIKZHVwCmludGNfMCAvLyAwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKYnRvaQpmcmFtZV9idXJ5IDAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpmcmFtZV9idXJ5IDEKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMwpmcmFtZV9idXJ5IDIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgNApidG9pCmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpmcmFtZV9kaWcgMwpjYWxsc3ViIHRyYW5zZmVyY3JlZGl0c183CnJldHN1Yg==",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 11,
+            "num_uints": 6
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "asset_creator": {
+                    "type": "bytes",
+                    "key": "asset_creator",
+                    "descr": "Address of the asset creator"
+                },
+                "asset_id": {
+                    "type": "uint64",
+                    "key": "asset_id",
+                    "descr": "Asset ID of the tokenized asset"
+                },
+                "asset_type": {
+                    "type": "bytes",
+                    "key": "asset_type",
+                    "descr": "Type of the asset (e.g., 'blue-economy', 'carbon-credit', etc.)"
+                },
+                "carbon_registry": {
+                    "type": "bytes",
+                    "key": "carbon_registry",
+                    "descr": "Carbon registry name"
+                },
+                "compliance_status": {
+                    "type": "bytes",
+                    "key": "compliance_status",
+                    "descr": "Compliance status of the asset (e.g., 'authorized', 'suspended')"
+                },
+                "credit_type": {
+                    "type": "bytes",
+                    "key": "credit_type",
+                    "descr": "Type of carbon credit"
+                },
+                "geolocation": {
+                    "type": "bytes",
+                    "key": "geolocation",
+                    "descr": "Geolocation information for the asset"
+                },
+                "jurisdiction_code": {
+                    "type": "bytes",
+                    "key": "jurisdiction_code",
+                    "descr": "Jurisdiction code where the asset is located/regulated"
+                },
+                "last_updated": {
+                    "type": "uint64",
+                    "key": "last_updated",
+                    "descr": "Timestamp of the last update to the asset"
+                },
+                "metadata": {
+                    "type": "bytes",
+                    "key": "metadata",
+                    "descr": "IPFS hash or other metadata reference"
+                },
+                "registry_project_id": {
+                    "type": "bytes",
+                    "key": "registry_project_id",
+                    "descr": "Project ID in the registry"
+                },
+                "remaining_offset": {
+                    "type": "uint64",
+                    "key": "remaining_offset",
+                    "descr": "Remaining carbon offset in tonnes CO2"
+                },
+                "total_carbon_offset": {
+                    "type": "uint64",
+                    "key": "total_carbon_offset",
+                    "descr": "Total carbon offset in tonnes CO2"
+                },
+                "verification_methodology": {
+                    "type": "bytes",
+                    "key": "verification_methodology",
+                    "descr": "Verification methodology used"
+                },
+                "verifier": {
+                    "type": "bytes",
+                    "key": "verifier",
+                    "descr": "Name of the verifier"
+                },
+                "vintage_end": {
+                    "type": "uint64",
+                    "key": "vintage_end",
+                    "descr": "End date of the vintage period"
+                },
+                "vintage_start": {
+                    "type": "uint64",
+                    "key": "vintage_start",
+                    "descr": "Start date of the vintage period"
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "CarbonCreditContract",
+        "methods": [
+            {
+                "name": "create",
+                "args": [],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Initialize the app - basic setup only"
+            },
+            {
+                "name": "create_carbon_project",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "name"
+                    },
+                    {
+                        "type": "string",
+                        "name": "unit_name"
+                    },
+                    {
+                        "type": "string",
+                        "name": "credit_type"
+                    },
+                    {
+                        "type": "string",
+                        "name": "carbon_registry"
+                    },
+                    {
+                        "type": "string",
+                        "name": "registry_project_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "jurisdiction_code"
+                    },
+                    {
+                        "type": "string",
+                        "name": "geolocation"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "vintage_start"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "vintage_end"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "total_offset"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verification_methodology"
+                    },
+                    {
+                        "type": "string",
+                        "name": "monitoring_report_hash"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verifier"
+                    }
+                ],
+                "returns": {
+                    "type": "uint64"
+                },
+                "desc": "Creates a new carbon credit project"
+            },
+            {
+                "name": "issue_credits",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    },
+                    {
+                        "type": "address",
+                        "name": "recipient"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "amount"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Issues carbon credits to a recipient"
+            },
+            {
+                "name": "retire_credits",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "amount"
+                    },
+                    {
+                        "type": "string",
+                        "name": "retirement_beneficiary"
+                    },
+                    {
+                        "type": "string",
+                        "name": "retirement_reason"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Retires carbon credits (permanently removing them from circulation)"
+            },
+            {
+                "name": "add_verification_document",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verifier_name"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "verification_date"
+                    },
+                    {
+                        "type": "string",
+                        "name": "document_hash"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Adds verification document to existing carbon credits"
+            },
+            {
+                "name": "get_carbon_credit_details",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    }
+                ],
+                "returns": {
+                    "type": "string"
+                },
+                "desc": "Get detailed carbon credit information"
+            },
+            {
+                "name": "verify_carbon_credit",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Verify the authenticity of carbon credit"
+            },
+            {
+                "name": "transfer_credits",
+                "args": [
+                    {
+                        "type": "uint64",
+                        "name": "credit_asset_id"
+                    },
+                    {
+                        "type": "address",
+                        "name": "from_address"
+                    },
+                    {
+                        "type": "address",
+                        "name": "to_address"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "amount"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Transfer carbon credits between accounts"
+            }
+        ],
+        "networks": {},
+        "desc": "Implements the Verified Carbon Unit (VCU) Framework for climate initiatives"
+    },
+    "bare_call_config": {}
+}

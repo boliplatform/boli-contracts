@@ -1,0 +1,145 @@
+{
+    "name": "BlueEconomyContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_marine_asset",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "resource_name"
+                },
+                {
+                    "type": "string",
+                    "name": "resource_type"
+                },
+                {
+                    "type": "string",
+                    "name": "marine_zone"
+                },
+                {
+                    "type": "uint64",
+                    "name": "sustainability_rating"
+                },
+                {
+                    "type": "uint64",
+                    "name": "validity_period"
+                },
+                {
+                    "type": "string",
+                    "name": "documents_hash"
+                },
+                {
+                    "type": "string",
+                    "name": "geo_boundary"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a tokenized marine resource or right"
+        },
+        {
+            "name": "is_marine_right_valid",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Check if a marine right is still valid (not expired)"
+        },
+        {
+            "name": "update_sustainability_rating",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "new_rating"
+                },
+                {
+                    "type": "string",
+                    "name": "assessment_hash"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Update sustainability rating based on environmental assessment"
+        },
+        {
+            "name": "extend_validity_period",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "extension_period"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Extend the validity period of a marine right"
+        },
+        {
+            "name": "get_marine_asset_details",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get detailed marine asset information"
+        },
+        {
+            "name": "transfer_marine_asset",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "address",
+                    "name": "from_address"
+                },
+                {
+                    "type": "address",
+                    "name": "to_address"
+                },
+                {
+                    "type": "uint64",
+                    "name": "amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Transfer rights to the marine asset"
+        }
+    ],
+    "networks": {},
+    "desc": "Manages tokenization of sustainable marine resources, fishing rights, and coastal tourism concessions"
+}

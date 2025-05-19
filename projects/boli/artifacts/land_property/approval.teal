@@ -1,0 +1,667 @@
+#pragma version 8
+intcblock 0 1 3
+bytecblock 0x 0x61737365745f6964 0x6672616374696f6e616c697a65645f737461747573 0x6d65746164617461 0x6c6173745f75706461746564 0x207c204c6567616c2049443a20 0x70726f70657274795f74797065 0x6c6567616c5f6964656e746966696572 0x76616c756174696f6e5f616d6f756e74 0x6672616374696f6e616c5f61737365745f6964 0x151f7c75 0x697066733a2f2f 0x207c204a7572697364696374696f6e3a20 0x6a7572697364696374696f6e5f636f6465 0x636f6d706c69616e63655f737461747573 0x76616c756174696f6e5f64617465
+txna ApplicationArgs 0
+pushbytes 0x4c5c61ba // "create()void"
+==
+bnz main_l14
+txna ApplicationArgs 0
+pushbytes 0xe8658f92 // "create_property(string,string,string,string,string,string,uint64,string)uint64"
+==
+bnz main_l13
+txna ApplicationArgs 0
+pushbytes 0xb754f3f5 // "fractionalize_property(uint64,string,string,uint64,uint64)uint64"
+==
+bnz main_l12
+txna ApplicationArgs 0
+pushbytes 0x8cb38cc9 // "update_valuation(uint64,uint64,string)void"
+==
+bnz main_l11
+txna ApplicationArgs 0
+pushbytes 0x2a855032 // "update_legal_documentation(uint64,string,string)void"
+==
+bnz main_l10
+txna ApplicationArgs 0
+pushbytes 0xd0232812 // "get_property_details(uint64)string"
+==
+bnz main_l9
+txna ApplicationArgs 0
+pushbytes 0x4654e8af // "transfer_property(uint64,address,address)void"
+==
+bnz main_l8
+err
+main_l8:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub transferpropertycaster_13
+intc_1 // 1
+return
+main_l9:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub getpropertydetailscaster_12
+intc_1 // 1
+return
+main_l10:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub updatelegaldocumentationcaster_11
+intc_1 // 1
+return
+main_l11:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub updatevaluationcaster_10
+intc_1 // 1
+return
+main_l12:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub fractionalizepropertycaster_9
+intc_1 // 1
+return
+main_l13:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub createpropertycaster_8
+intc_1 // 1
+return
+main_l14:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+==
+&&
+assert
+callsub createcaster_7
+intc_1 // 1
+return
+
+// create
+create_0:
+proto 0 0
+intc_1 // 1
+return
+
+// create_property
+createproperty_1:
+proto 8 1
+intc_0 // 0
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+itxn_begin
+intc_2 // acfg
+itxn_field TypeEnum
+intc_1 // 1
+itxn_field ConfigAssetTotal
+intc_0 // 0
+itxn_field ConfigAssetDecimals
+intc_0 // 0
+itxn_field ConfigAssetDefaultFrozen
+global CurrentApplicationAddress
+itxn_field ConfigAssetManager
+txn Sender
+itxn_field ConfigAssetReserve
+global CurrentApplicationAddress
+itxn_field ConfigAssetFreeze
+global CurrentApplicationAddress
+itxn_field ConfigAssetClawback
+frame_dig -7
+extract 2 0
+itxn_field ConfigAssetUnitName
+frame_dig -8
+extract 2 0
+itxn_field ConfigAssetName
+bytec 11 // "ipfs://"
+frame_dig -1
+extract 2 0
+concat
+itxn_field ConfigAssetURL
+pushbytes 0x426f6c692050726f70657274793a20 // "Boli Property: "
+frame_dig -6
+extract 2 0
+concat
+bytec 5 // " | Legal ID: "
+concat
+frame_dig -5
+extract 2 0
+concat
+bytec 12 // " | Jurisdiction: "
+concat
+frame_dig -4
+extract 2 0
+concat
+itxn_field Note
+itxn_submit
+bytec_1 // "asset_id"
+itxn CreatedAssetID
+app_global_put
+pushbytes 0x61737365745f63726561746f72 // "asset_creator"
+txn Sender
+app_global_put
+pushbytes 0x61737365745f74797065 // "asset_type"
+pushbytes 0x6c616e642d70726f7065727479 // "land-property"
+app_global_put
+pushbytes 0x67656f6c6f636174696f6e // "geolocation"
+frame_dig -3
+extract 2 0
+app_global_put
+bytec_3 // "metadata"
+frame_dig -1
+extract 2 0
+app_global_put
+bytec 13 // "jurisdiction_code"
+frame_dig -4
+extract 2 0
+app_global_put
+bytec 14 // "compliance_status"
+pushbytes 0x63726561746564 // "created"
+app_global_put
+bytec 4 // "last_updated"
+global LatestTimestamp
+app_global_put
+bytec 6 // "property_type"
+frame_dig -6
+extract 2 0
+app_global_put
+bytec 7 // "legal_identifier"
+frame_dig -5
+extract 2 0
+app_global_put
+bytec 8 // "valuation_amount"
+frame_dig -2
+app_global_put
+bytec 15 // "valuation_date"
+global LatestTimestamp
+app_global_put
+bytec_2 // "fractionalized_status"
+intc_0 // 0
+app_global_put
+itxn CreatedAssetID
+frame_bury 0
+retsub
+
+// fractionalize_property
+fractionalizeproperty_2:
+proto 5 1
+intc_0 // 0
+bytec_1 // "asset_id"
+app_global_get
+frame_dig -5
+==
+// Property ID mismatch
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+bytec_2 // "fractionalized_status"
+app_global_get
+intc_0 // 0
+==
+// Property is already fractionalized
+assert
+itxn_begin
+intc_2 // acfg
+itxn_field TypeEnum
+frame_dig -2
+itxn_field ConfigAssetTotal
+frame_dig -1
+itxn_field ConfigAssetDecimals
+intc_0 // 0
+itxn_field ConfigAssetDefaultFrozen
+global CurrentApplicationAddress
+itxn_field ConfigAssetManager
+txn Sender
+itxn_field ConfigAssetReserve
+global CurrentApplicationAddress
+itxn_field ConfigAssetFreeze
+global CurrentApplicationAddress
+itxn_field ConfigAssetClawback
+frame_dig -3
+extract 2 0
+itxn_field ConfigAssetUnitName
+frame_dig -4
+extract 2 0
+itxn_field ConfigAssetName
+bytec 11 // "ipfs://"
+bytec_3 // "metadata"
+app_global_get
+concat
+itxn_field ConfigAssetURL
+pushbytes 0x426f6c69204672616374696f6e616c697a65642050726f70657274793a20 // "Boli Fractionalized Property: "
+bytec 6 // "property_type"
+app_global_get
+concat
+pushbytes 0x207c204f726967696e616c2041737365742049443a20 // " | Original Asset ID: "
+concat
+frame_dig -5
+itob
+extract 0 8
+concat
+bytec 5 // " | Legal ID: "
+concat
+bytec 7 // "legal_identifier"
+app_global_get
+concat
+itxn_field Note
+itxn_submit
+bytec_2 // "fractionalized_status"
+intc_1 // 1
+app_global_put
+bytec 9 // "fractional_asset_id"
+itxn CreatedAssetID
+app_global_put
+bytec 4 // "last_updated"
+global LatestTimestamp
+app_global_put
+itxn CreatedAssetID
+frame_bury 0
+retsub
+
+// update_valuation
+updatevaluation_3:
+proto 3 0
+bytec_1 // "asset_id"
+app_global_get
+frame_dig -3
+==
+// Property ID mismatch
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+bytec 8 // "valuation_amount"
+frame_dig -2
+app_global_put
+bytec 15 // "valuation_date"
+global LatestTimestamp
+app_global_put
+bytec_3 // "metadata"
+bytec_3 // "metadata"
+app_global_get
+pushbytes 0x7c61707072616973616c3a // "|appraisal:"
+concat
+frame_dig -1
+extract 2 0
+concat
+app_global_put
+retsub
+
+// update_legal_documentation
+updatelegaldocumentation_4:
+proto 3 0
+bytec_1 // "asset_id"
+app_global_get
+frame_dig -3
+==
+// Property ID mismatch
+assert
+txn Sender
+global CreatorAddress
+==
+// Only the creator can perform this action
+assert
+bytec_3 // "metadata"
+bytec_3 // "metadata"
+app_global_get
+pushbytes 0x7c // "|"
+concat
+frame_dig -1
+extract 2 0
+concat
+pushbytes 0x3a // ":"
+concat
+frame_dig -2
+extract 2 0
+concat
+app_global_put
+bytec 4 // "last_updated"
+global LatestTimestamp
+app_global_put
+bytec_2 // "fractionalized_status"
+app_global_get
+intc_1 // 1
+==
+bz updatelegaldocumentation_4_l2
+itxn_begin
+intc_2 // acfg
+itxn_field TypeEnum
+bytec 9 // "fractional_asset_id"
+app_global_get
+itxn_field ConfigAsset
+global CurrentApplicationAddress
+itxn_field ConfigAssetManager
+txn Sender
+itxn_field ConfigAssetReserve
+global CurrentApplicationAddress
+itxn_field ConfigAssetFreeze
+global CurrentApplicationAddress
+itxn_field ConfigAssetClawback
+itxn_submit
+updatelegaldocumentation_4_l2:
+retsub
+
+// get_property_details
+getpropertydetails_5:
+proto 1 1
+bytec_0 // ""
+bytec_1 // "asset_id"
+app_global_get
+frame_dig -1
+==
+// Property ID mismatch
+assert
+pushbytes 0x50726f70657274792049443a20 // "Property ID: "
+bytec_1 // "asset_id"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c20547970653a20 // " | Type: "
+concat
+bytec 6 // "property_type"
+app_global_get
+concat
+bytec 5 // " | Legal ID: "
+concat
+bytec 7 // "legal_identifier"
+app_global_get
+concat
+bytec 12 // " | Jurisdiction: "
+concat
+bytec 13 // "jurisdiction_code"
+app_global_get
+concat
+pushbytes 0x207c2056616c756174696f6e3a20 // " | Valuation: "
+concat
+bytec 8 // "valuation_amount"
+app_global_get
+itob
+extract 0 8
+concat
+pushbytes 0x207c204672616374696f6e616c697a65643a20 // " | Fractionalized: "
+concat
+bytec_2 // "fractionalized_status"
+app_global_get
+intc_1 // 1
+==
+bnz getpropertydetails_5_l5
+pushbytes 0x4e6f // "No"
+getpropertydetails_5_l2:
+concat
+bytec_2 // "fractionalized_status"
+app_global_get
+intc_1 // 1
+==
+bnz getpropertydetails_5_l4
+bytec_0 // ""
+b getpropertydetails_5_l6
+getpropertydetails_5_l4:
+pushbytes 0x207c204672616374696f6e2041737365742049443a20 // " | Fraction Asset ID: "
+bytec 9 // "fractional_asset_id"
+app_global_get
+itob
+extract 0 8
+concat
+b getpropertydetails_5_l6
+getpropertydetails_5_l5:
+pushbytes 0x596573 // "Yes"
+b getpropertydetails_5_l2
+getpropertydetails_5_l6:
+concat
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+retsub
+
+// transfer_property
+transferproperty_6:
+proto 3 0
+bytec_1 // "asset_id"
+app_global_get
+frame_dig -3
+==
+// Property ID mismatch
+assert
+bytec 14 // "compliance_status"
+app_global_get
+pushbytes 0x73757370656e646564 // "suspended"
+!=
+// Property transfers suspended
+assert
+bytec_2 // "fractionalized_status"
+app_global_get
+intc_0 // 0
+==
+// Property is fractionalized, transfer fractional tokens instead
+assert
+txn Sender
+frame_dig -2
+==
+// Sender must be the property owner
+assert
+itxn_begin
+pushint 4 // axfer
+itxn_field TypeEnum
+frame_dig -3
+itxn_field XferAsset
+intc_1 // 1
+itxn_field AssetAmount
+frame_dig -1
+itxn_field AssetReceiver
+frame_dig -2
+itxn_field AssetSender
+itxn_submit
+bytec 4 // "last_updated"
+global LatestTimestamp
+app_global_put
+retsub
+
+// create_caster
+createcaster_7:
+proto 0 0
+callsub create_0
+retsub
+
+// create_property_caster
+createpropertycaster_8:
+proto 0 0
+intc_0 // 0
+bytec_0 // ""
+dupn 5
+intc_0 // 0
+bytec_0 // ""
+txna ApplicationArgs 1
+frame_bury 1
+txna ApplicationArgs 2
+frame_bury 2
+txna ApplicationArgs 3
+frame_bury 3
+txna ApplicationArgs 4
+frame_bury 4
+txna ApplicationArgs 5
+frame_bury 5
+txna ApplicationArgs 6
+frame_bury 6
+txna ApplicationArgs 7
+btoi
+frame_bury 7
+txna ApplicationArgs 8
+frame_bury 8
+frame_dig 1
+frame_dig 2
+frame_dig 3
+frame_dig 4
+frame_dig 5
+frame_dig 6
+frame_dig 7
+frame_dig 8
+callsub createproperty_1
+frame_bury 0
+bytec 10 // 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// fractionalize_property_caster
+fractionalizepropertycaster_9:
+proto 0 0
+intc_0 // 0
+dup
+bytec_0 // ""
+dup
+intc_0 // 0
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+txna ApplicationArgs 2
+frame_bury 2
+txna ApplicationArgs 3
+frame_bury 3
+txna ApplicationArgs 4
+btoi
+frame_bury 4
+txna ApplicationArgs 5
+btoi
+frame_bury 5
+frame_dig 1
+frame_dig 2
+frame_dig 3
+frame_dig 4
+frame_dig 5
+callsub fractionalizeproperty_2
+frame_bury 0
+bytec 10 // 0x151f7c75
+frame_dig 0
+itob
+concat
+log
+retsub
+
+// update_valuation_caster
+updatevaluationcaster_10:
+proto 0 0
+intc_0 // 0
+dup
+bytec_0 // ""
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+txna ApplicationArgs 2
+btoi
+frame_bury 1
+txna ApplicationArgs 3
+frame_bury 2
+frame_dig 0
+frame_dig 1
+frame_dig 2
+callsub updatevaluation_3
+retsub
+
+// update_legal_documentation_caster
+updatelegaldocumentationcaster_11:
+proto 0 0
+intc_0 // 0
+bytec_0 // ""
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+txna ApplicationArgs 3
+frame_bury 2
+frame_dig 0
+frame_dig 1
+frame_dig 2
+callsub updatelegaldocumentation_4
+retsub
+
+// get_property_details_caster
+getpropertydetailscaster_12:
+proto 0 0
+bytec_0 // ""
+intc_0 // 0
+txna ApplicationArgs 1
+btoi
+frame_bury 1
+frame_dig 1
+callsub getpropertydetails_5
+frame_bury 0
+bytec 10 // 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
+
+// transfer_property_caster
+transferpropertycaster_13:
+proto 0 0
+intc_0 // 0
+bytec_0 // ""
+dup
+txna ApplicationArgs 1
+btoi
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+txna ApplicationArgs 3
+frame_bury 2
+frame_dig 0
+frame_dig 1
+frame_dig 2
+callsub transferproperty_6
+retsub

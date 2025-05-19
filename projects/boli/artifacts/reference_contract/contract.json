@@ -1,0 +1,19 @@
+{
+    "name": "BoliPlatform",
+    "methods": [
+        {
+            "name": "hello",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Say hello to the specified name"
+        }
+    ],
+    "networks": {}
+}

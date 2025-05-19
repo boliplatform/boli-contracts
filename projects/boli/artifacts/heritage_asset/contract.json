@@ -1,0 +1,253 @@
+{
+    "name": "HeritageAssetContract",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the app - basic setup only"
+        },
+        {
+            "name": "create_heritage_asset",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "name"
+                },
+                {
+                    "type": "string",
+                    "name": "unit_name"
+                },
+                {
+                    "type": "string",
+                    "name": "heritage_type"
+                },
+                {
+                    "type": "string",
+                    "name": "cultural_significance"
+                },
+                {
+                    "type": "string",
+                    "name": "legal_status"
+                },
+                {
+                    "type": "string",
+                    "name": "jurisdiction_code"
+                },
+                {
+                    "type": "string",
+                    "name": "geolocation"
+                },
+                {
+                    "type": "address",
+                    "name": "community_identifier"
+                },
+                {
+                    "type": "string",
+                    "name": "stewardship_model"
+                },
+                {
+                    "type": "string",
+                    "name": "documentation_hash"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Creates a new heritage asset"
+        },
+        {
+            "name": "update_heritage_documentation",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "new_documentation_hash"
+                },
+                {
+                    "type": "string",
+                    "name": "document_type"
+                },
+                {
+                    "type": "string",
+                    "name": "new_conservation_status"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Update heritage asset documentation and status"
+        },
+        {
+            "name": "create_restoration_project",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "funding_target"
+                },
+                {
+                    "type": "uint64",
+                    "name": "project_deadline"
+                },
+                {
+                    "type": "uint64",
+                    "name": "project_phases_count"
+                },
+                {
+                    "type": "address",
+                    "name": "project_verifier"
+                },
+                {
+                    "type": "string",
+                    "name": "project_details_hash"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Create a restoration/conservation project for the heritage asset"
+        },
+        {
+            "name": "contribute_to_project",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "contribution_amount"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Contribute funds to a heritage restoration project"
+        },
+        {
+            "name": "issue_ownership_tokens",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "string",
+                    "name": "token_name"
+                },
+                {
+                    "type": "string",
+                    "name": "token_unit_name"
+                }
+            ],
+            "returns": {
+                "type": "uint64"
+            },
+            "desc": "Issue ownership tokens for contributors based on their contribution"
+        },
+        {
+            "name": "distribute_community_tokens",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Distribute ownership tokens to the community steward"
+        },
+        {
+            "name": "verify_phase_completion",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "phase_number"
+                },
+                {
+                    "type": "string",
+                    "name": "verification_documentation"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Verify completion of a project phase"
+        },
+        {
+            "name": "update_revenue_shares",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "new_community_share"
+                },
+                {
+                    "type": "uint64",
+                    "name": "new_investor_share"
+                },
+                {
+                    "type": "uint64",
+                    "name": "new_conservation_share"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Update revenue distribution shares"
+        },
+        {
+            "name": "get_heritage_asset_details",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get detailed heritage asset information"
+        },
+        {
+            "name": "register_asset_revenue",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "revenue_amount"
+                },
+                {
+                    "type": "string",
+                    "name": "revenue_source"
+                }
+            ],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Register revenue generated by the heritage asset"
+        }
+    ],
+    "networks": {},
+    "desc": "Manages tokenization, restoration funding, and cultural stewardship of heritage sites and artifacts"
+}

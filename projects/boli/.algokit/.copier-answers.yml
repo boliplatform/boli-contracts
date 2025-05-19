@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 1.6.1
+_src_path: gh:algorandfoundation/algokit-python-template
+author_email: hilaal@gmail.com
+author_name: Hilal Agil
+contract_name: boli_platform
+deployment_language: python
+preset_name: starter
+project_name: boli
+

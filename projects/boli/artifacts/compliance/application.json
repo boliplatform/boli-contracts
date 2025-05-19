@@ -1,0 +1,164 @@
+{
+    "hints": {
+        "initialize(address,address)void": {
+            "call_config": {
+                "no_op": "CREATE"
+            }
+        },
+        "register_jurisdiction_regulator(string,address)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "set_kyc_status(address,string,uint64)void": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_kyc_status(address)string": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_regulator()address": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_kyc_provider()address": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMSAzMgpieXRlY2Jsb2NrIDB4IDB4NmI3OTYzIDB4NzI2NTY3NzU2YzYxNzQ2ZjcyIDB4NjU3ODcwIDB4NmI3OTYzNWY3MDcyNmY3NjY5NjQ2NTcyIDB4MTUxZjdjNzUgMHg2YTcyNzMKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg4MDdiMDQyNCAvLyAiaW5pdGlhbGl6ZShhZGRyZXNzLGFkZHJlc3Mpdm9pZCIKPT0KYm56IG1haW5fbDEyCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ZDdkZWY5Y2YgLy8gInJlZ2lzdGVyX2p1cmlzZGljdGlvbl9yZWd1bGF0b3Ioc3RyaW5nLGFkZHJlc3Mpdm9pZCIKPT0KYm56IG1haW5fbDExCnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ODM5Y2RmNDggLy8gInNldF9reWNfc3RhdHVzKGFkZHJlc3Msc3RyaW5nLHVpbnQ2NCl2b2lkIgo9PQpibnogbWFpbl9sMTAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg1OTAyNzA3YiAvLyAiZ2V0X2t5Y19zdGF0dXMoYWRkcmVzcylzdHJpbmciCj09CmJueiBtYWluX2w5CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4N2Y5ZTEzYWEgLy8gImdldF9yZWd1bGF0b3IoKWFkZHJlc3MiCj09CmJueiBtYWluX2w4CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4YmU2NzJiOWEgLy8gImdldF9reWNfcHJvdmlkZXIoKWFkZHJlc3MiCj09CmJueiBtYWluX2w3CmVycgptYWluX2w3Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdldGt5Y3Byb3ZpZGVyY2FzdGVyXzExCmludGNfMSAvLyAxCnJldHVybgptYWluX2w4Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGdldHJlZ3VsYXRvcmNhc3Rlcl8xMAppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sOToKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBnZXRreWNzdGF0dXNjYXN0ZXJfOQppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sMTA6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgc2V0a3ljc3RhdHVzY2FzdGVyXzgKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDExOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHJlZ2lzdGVyanVyaXNkaWN0aW9ucmVndWxhdG9yY2FzdGVyXzcKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDEyOgp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCj09CiYmCmFzc2VydApjYWxsc3ViIGluaXRpYWxpemVjYXN0ZXJfNgppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIGluaXRpYWxpemUKaW5pdGlhbGl6ZV8wOgpwcm90byAyIDAKYnl0ZWNfMiAvLyAicmVndWxhdG9yIgpmcmFtZV9kaWcgLTIKYXBwX2dsb2JhbF9wdXQKYnl0ZWMgNCAvLyAia3ljX3Byb3ZpZGVyIgpmcmFtZV9kaWcgLTEKYXBwX2dsb2JhbF9wdXQKaW50Y18xIC8vIDEKcmV0dXJuCgovLyByZWdpc3Rlcl9qdXJpc2RpY3Rpb25fcmVndWxhdG9yCnJlZ2lzdGVyanVyaXNkaWN0aW9ucmVndWxhdG9yXzE6CnByb3RvIDIgMAp0eG4gU2VuZGVyCmJ5dGVjXzIgLy8gInJlZ3VsYXRvciIKYXBwX2dsb2JhbF9nZXQKPT0KLy8gT25seSB0aGUgbWFpbiByZWd1bGF0b3IgY2FuIHJlZ2lzdGVyIGp1cmlzZGljdGlvbiByZWd1bGF0b3JzCmFzc2VydApieXRlYyA2IC8vICJqcnMiCmZyYW1lX2RpZyAtMgpjb25jYXQKYm94X2RlbApwb3AKYnl0ZWMgNiAvLyAianJzIgpmcmFtZV9kaWcgLTIKY29uY2F0CmZyYW1lX2RpZyAtMQpib3hfcHV0CmludGNfMSAvLyAxCnJldHVybgoKLy8gc2V0X2t5Y19zdGF0dXMKc2V0a3ljc3RhdHVzXzI6CnByb3RvIDMgMAp0eG4gU2VuZGVyCmJ5dGVjIDQgLy8gImt5Y19wcm92aWRlciIKYXBwX2dsb2JhbF9nZXQKPT0KdHhuIFNlbmRlcgpieXRlY18yIC8vICJyZWd1bGF0b3IiCmFwcF9nbG9iYWxfZ2V0Cj09Cnx8Ci8vIE9ubHkgdGhlIEtZQyBwcm92aWRlciBvciBtYWluIHJlZ3VsYXRvciBjYW4gc2V0IEtZQyBzdGF0dXMKYXNzZXJ0CmZyYW1lX2RpZyAtMgpleHRyYWN0IDIgMApwdXNoYnl0ZXMgMHg2MTcwNzA3MjZmNzY2NTY0IC8vICJhcHByb3ZlZCIKPT0KZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCnB1c2hieXRlcyAweDcwNjU2ZTY0Njk2ZTY3IC8vICJwZW5kaW5nIgo9PQp8fApmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKcHVzaGJ5dGVzIDB4NzI2NTZhNjU2Mzc0NjU2NCAvLyAicmVqZWN0ZWQiCj09Cnx8Ci8vIEludmFsaWQgS1lDIHN0YXR1cwphc3NlcnQKYnl0ZWNfMSAvLyAia3ljIgpmcmFtZV9kaWcgLTMKY29uY2F0CmJveF9kZWwKcG9wCmJ5dGVjXzEgLy8gImt5YyIKZnJhbWVfZGlnIC0zCmNvbmNhdApmcmFtZV9kaWcgLTIKYm94X3B1dApieXRlY18zIC8vICJleHAiCmZyYW1lX2RpZyAtMwpjb25jYXQKYm94X2RlbApwb3AKYnl0ZWNfMyAvLyAiZXhwIgpmcmFtZV9kaWcgLTMKY29uY2F0CmZyYW1lX2RpZyAtMQppdG9iCmJveF9wdXQKaW50Y18xIC8vIDEKcmV0dXJuCgovLyBnZXRfa3ljX3N0YXR1cwpnZXRreWNzdGF0dXNfMzoKcHJvdG8gMSAxCmJ5dGVjXzAgLy8gIiIKaW50Y18wIC8vIDAKYnl0ZWNfMSAvLyAia3ljIgpmcmFtZV9kaWcgLTEKY29uY2F0CmJveF9sZW4Kc3RvcmUgMQpzdG9yZSAwCmxvYWQgMQpibnogZ2V0a3ljc3RhdHVzXzNfbDEyCmludGNfMCAvLyAwCmdldGt5Y3N0YXR1c18zX2wyOgppbnRjXzAgLy8gMAo9PQpibnogZ2V0a3ljc3RhdHVzXzNfbDExCmJ5dGVjXzMgLy8gImV4cCIKZnJhbWVfZGlnIC0xCmNvbmNhdApib3hfbGVuCnN0b3JlIDMKc3RvcmUgMgpsb2FkIDMKYm56IGdldGt5Y3N0YXR1c18zX2wxMAppbnRjXzAgLy8gMApnZXRreWNzdGF0dXNfM19sNToKaW50Y18xIC8vIDEKPT0KYm56IGdldGt5Y3N0YXR1c18zX2w3CmJ5dGVjXzEgLy8gImt5YyIKZnJhbWVfZGlnIC0xCmNvbmNhdApib3hfZ2V0CnN0b3JlIDkKc3RvcmUgOApsb2FkIDkKYXNzZXJ0CmxvYWQgOApmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKbGVuCml0b2IKZXh0cmFjdCA2IDAKZnJhbWVfZGlnIDAKY29uY2F0CmZyYW1lX2J1cnkgMApiIGdldGt5Y3N0YXR1c18zX2wxMwpnZXRreWNzdGF0dXNfM19sNzoKYnl0ZWNfMyAvLyAiZXhwIgpmcmFtZV9kaWcgLTEKY29uY2F0CmJveF9nZXQKc3RvcmUgNQpzdG9yZSA0CmxvYWQgNQphc3NlcnQKbG9hZCA0CmJ0b2kKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCmludGNfMCAvLyAwCj4KZ2xvYmFsIExhdGVzdFRpbWVzdGFtcApmcmFtZV9kaWcgMQo+CiYmCmJueiBnZXRreWNzdGF0dXNfM19sOQpieXRlY18xIC8vICJreWMiCmZyYW1lX2RpZyAtMQpjb25jYXQKYm94X2dldApzdG9yZSA3CnN0b3JlIDYKbG9hZCA3CmFzc2VydApsb2FkIDYKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmxlbgppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyAwCmNvbmNhdApmcmFtZV9idXJ5IDAKYiBnZXRreWNzdGF0dXNfM19sMTMKZ2V0a3ljc3RhdHVzXzNfbDk6CnB1c2hieXRlcyAweDY1Nzg3MDY5NzI2NTY0IC8vICJleHBpcmVkIgpmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKbGVuCml0b2IKZXh0cmFjdCA2IDAKZnJhbWVfZGlnIDAKY29uY2F0CmZyYW1lX2J1cnkgMApiIGdldGt5Y3N0YXR1c18zX2wxMwpnZXRreWNzdGF0dXNfM19sMTA6CmludGNfMSAvLyAxCmIgZ2V0a3ljc3RhdHVzXzNfbDUKZ2V0a3ljc3RhdHVzXzNfbDExOgpwdXNoYnl0ZXMgMHg2ZTZmNzQ1ZjcyNjU2NzY5NzM3NDY1NzI2NTY0IC8vICJub3RfcmVnaXN0ZXJlZCIKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmxlbgppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyAwCmNvbmNhdApmcmFtZV9idXJ5IDAKYiBnZXRreWNzdGF0dXNfM19sMTMKZ2V0a3ljc3RhdHVzXzNfbDEyOgppbnRjXzEgLy8gMQpiIGdldGt5Y3N0YXR1c18zX2wyCmdldGt5Y3N0YXR1c18zX2wxMzoKcmV0c3ViCgovLyBnZXRfcmVndWxhdG9yCmdldHJlZ3VsYXRvcl80Ogpwcm90byAwIDEKYnl0ZWNfMCAvLyAiIgpieXRlY18yIC8vICJyZWd1bGF0b3IiCmFwcF9nbG9iYWxfZ2V0CmZyYW1lX2J1cnkgMApmcmFtZV9kaWcgMApsZW4KaW50Y18yIC8vIDMyCj09CmFzc2VydApyZXRzdWIKCi8vIGdldF9reWNfcHJvdmlkZXIKZ2V0a3ljcHJvdmlkZXJfNToKcHJvdG8gMCAxCmJ5dGVjXzAgLy8gIiIKYnl0ZWMgNCAvLyAia3ljX3Byb3ZpZGVyIgphcHBfZ2xvYmFsX2dldApmcmFtZV9idXJ5IDAKZnJhbWVfZGlnIDAKbGVuCmludGNfMiAvLyAzMgo9PQphc3NlcnQKcmV0c3ViCgovLyBpbml0aWFsaXplX2Nhc3Rlcgppbml0aWFsaXplY2FzdGVyXzY6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpjYWxsc3ViIGluaXRpYWxpemVfMApyZXRzdWIKCi8vIHJlZ2lzdGVyX2p1cmlzZGljdGlvbl9yZWd1bGF0b3JfY2FzdGVyCnJlZ2lzdGVyanVyaXNkaWN0aW9ucmVndWxhdG9yY2FzdGVyXzc6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMApmcmFtZV9kaWcgMQpjYWxsc3ViIHJlZ2lzdGVyanVyaXNkaWN0aW9ucmVndWxhdG9yXzEKcmV0c3ViCgovLyBzZXRfa3ljX3N0YXR1c19jYXN0ZXIKc2V0a3ljc3RhdHVzY2FzdGVyXzg6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAppbnRjXzAgLy8gMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAzCmJ0b2kKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAwCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAyCmNhbGxzdWIgc2V0a3ljc3RhdHVzXzIKcmV0c3ViCgovLyBnZXRfa3ljX3N0YXR1c19jYXN0ZXIKZ2V0a3ljc3RhdHVzY2FzdGVyXzk6CnByb3RvIDAgMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIGdldGt5Y3N0YXR1c18zCmZyYW1lX2J1cnkgMApieXRlYyA1IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKY29uY2F0CmxvZwpyZXRzdWIKCi8vIGdldF9yZWd1bGF0b3JfY2FzdGVyCmdldHJlZ3VsYXRvcmNhc3Rlcl8xMDoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKY2FsbHN1YiBnZXRyZWd1bGF0b3JfNApmcmFtZV9idXJ5IDAKYnl0ZWMgNSAvLyAweDE1MWY3Yzc1CmZyYW1lX2RpZyAwCmNvbmNhdApsb2cKcmV0c3ViCgovLyBnZXRfa3ljX3Byb3ZpZGVyX2Nhc3RlcgpnZXRreWNwcm92aWRlcmNhc3Rlcl8xMToKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKY2FsbHN1YiBnZXRreWNwcm92aWRlcl81CmZyYW1lX2J1cnkgMApieXRlYyA1IC8vIDB4MTUxZjdjNzUKZnJhbWVfZGlnIDAKY29uY2F0CmxvZwpyZXRzdWI=",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 2,
+            "num_uints": 0
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "kyc_provider": {
+                    "type": "bytes",
+                    "key": "kyc_provider",
+                    "descr": "Address of the KYC provider"
+                },
+                "regulator": {
+                    "type": "bytes",
+                    "key": "regulator",
+                    "descr": "Address of the main regulator"
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "ComplianceContract",
+        "methods": [
+            {
+                "name": "initialize",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "regulator_addr"
+                    },
+                    {
+                        "type": "address",
+                        "name": "kyc_provider_addr"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Initialize the contract with regulator and KYC provider addresses"
+            },
+            {
+                "name": "register_jurisdiction_regulator",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "jurisdiction_code"
+                    },
+                    {
+                        "type": "address",
+                        "name": "regulator_address"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Registers a regulator for a specific jurisdiction"
+            },
+            {
+                "name": "set_kyc_status",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "account_address"
+                    },
+                    {
+                        "type": "string",
+                        "name": "status"
+                    },
+                    {
+                        "type": "uint64",
+                        "name": "expiration_timestamp"
+                    }
+                ],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Sets KYC status for an account"
+            },
+            {
+                "name": "get_kyc_status",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "account_address"
+                    }
+                ],
+                "returns": {
+                    "type": "string"
+                },
+                "desc": "Gets KYC status for an account"
+            },
+            {
+                "name": "get_regulator",
+                "args": [],
+                "returns": {
+                    "type": "address"
+                },
+                "desc": "Get the regulator address"
+            },
+            {
+                "name": "get_kyc_provider",
+                "args": [],
+                "returns": {
+                    "type": "address"
+                },
+                "desc": "Get the KYC provider address"
+            }
+        ],
+        "networks": {},
+        "desc": "Compliance Contract for Boli platform"
+    },
+    "bare_call_config": {}
+}

@@ -1,0 +1,421 @@
+#pragma version 8
+intcblock 0 1 32
+bytecblock 0x 0x6b7963 0x726567756c61746f72 0x657870 0x6b79635f70726f7669646572 0x151f7c75 0x6a7273
+txna ApplicationArgs 0
+pushbytes 0x807b0424 // "initialize(address,address)void"
+==
+bnz main_l12
+txna ApplicationArgs 0
+pushbytes 0xd7def9cf // "register_jurisdiction_regulator(string,address)void"
+==
+bnz main_l11
+txna ApplicationArgs 0
+pushbytes 0x839cdf48 // "set_kyc_status(address,string,uint64)void"
+==
+bnz main_l10
+txna ApplicationArgs 0
+pushbytes 0x5902707b // "get_kyc_status(address)string"
+==
+bnz main_l9
+txna ApplicationArgs 0
+pushbytes 0x7f9e13aa // "get_regulator()address"
+==
+bnz main_l8
+txna ApplicationArgs 0
+pushbytes 0xbe672b9a // "get_kyc_provider()address"
+==
+bnz main_l7
+err
+main_l7:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub getkycprovidercaster_11
+intc_1 // 1
+return
+main_l8:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub getregulatorcaster_10
+intc_1 // 1
+return
+main_l9:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub getkycstatuscaster_9
+intc_1 // 1
+return
+main_l10:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub setkycstatuscaster_8
+intc_1 // 1
+return
+main_l11:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+!=
+&&
+assert
+callsub registerjurisdictionregulatorcaster_7
+intc_1 // 1
+return
+main_l12:
+txn OnCompletion
+intc_0 // NoOp
+==
+txn ApplicationID
+intc_0 // 0
+==
+&&
+assert
+callsub initializecaster_6
+intc_1 // 1
+return
+
+// initialize
+initialize_0:
+proto 2 0
+bytec_2 // "regulator"
+frame_dig -2
+app_global_put
+bytec 4 // "kyc_provider"
+frame_dig -1
+app_global_put
+intc_1 // 1
+return
+
+// register_jurisdiction_regulator
+registerjurisdictionregulator_1:
+proto 2 0
+txn Sender
+bytec_2 // "regulator"
+app_global_get
+==
+// Only the main regulator can register jurisdiction regulators
+assert
+bytec 6 // "jrs"
+frame_dig -2
+concat
+box_del
+pop
+bytec 6 // "jrs"
+frame_dig -2
+concat
+frame_dig -1
+box_put
+intc_1 // 1
+return
+
+// set_kyc_status
+setkycstatus_2:
+proto 3 0
+txn Sender
+bytec 4 // "kyc_provider"
+app_global_get
+==
+txn Sender
+bytec_2 // "regulator"
+app_global_get
+==
+||
+// Only the KYC provider or main regulator can set KYC status
+assert
+frame_dig -2
+extract 2 0
+pushbytes 0x617070726f766564 // "approved"
+==
+frame_dig -2
+extract 2 0
+pushbytes 0x70656e64696e67 // "pending"
+==
+||
+frame_dig -2
+extract 2 0
+pushbytes 0x72656a6563746564 // "rejected"
+==
+||
+// Invalid KYC status
+assert
+bytec_1 // "kyc"
+frame_dig -3
+concat
+box_del
+pop
+bytec_1 // "kyc"
+frame_dig -3
+concat
+frame_dig -2
+box_put
+bytec_3 // "exp"
+frame_dig -3
+concat
+box_del
+pop
+bytec_3 // "exp"
+frame_dig -3
+concat
+frame_dig -1
+itob
+box_put
+intc_1 // 1
+return
+
+// get_kyc_status
+getkycstatus_3:
+proto 1 1
+bytec_0 // ""
+intc_0 // 0
+bytec_1 // "kyc"
+frame_dig -1
+concat
+box_len
+store 1
+store 0
+load 1
+bnz getkycstatus_3_l12
+intc_0 // 0
+getkycstatus_3_l2:
+intc_0 // 0
+==
+bnz getkycstatus_3_l11
+bytec_3 // "exp"
+frame_dig -1
+concat
+box_len
+store 3
+store 2
+load 3
+bnz getkycstatus_3_l10
+intc_0 // 0
+getkycstatus_3_l5:
+intc_1 // 1
+==
+bnz getkycstatus_3_l7
+bytec_1 // "kyc"
+frame_dig -1
+concat
+box_get
+store 9
+store 8
+load 9
+assert
+load 8
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+b getkycstatus_3_l13
+getkycstatus_3_l7:
+bytec_3 // "exp"
+frame_dig -1
+concat
+box_get
+store 5
+store 4
+load 5
+assert
+load 4
+btoi
+frame_bury 1
+frame_dig 1
+intc_0 // 0
+>
+global LatestTimestamp
+frame_dig 1
+>
+&&
+bnz getkycstatus_3_l9
+bytec_1 // "kyc"
+frame_dig -1
+concat
+box_get
+store 7
+store 6
+load 7
+assert
+load 6
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+b getkycstatus_3_l13
+getkycstatus_3_l9:
+pushbytes 0x65787069726564 // "expired"
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+b getkycstatus_3_l13
+getkycstatus_3_l10:
+intc_1 // 1
+b getkycstatus_3_l5
+getkycstatus_3_l11:
+pushbytes 0x6e6f745f72656769737465726564 // "not_registered"
+frame_bury 0
+frame_dig 0
+len
+itob
+extract 6 0
+frame_dig 0
+concat
+frame_bury 0
+b getkycstatus_3_l13
+getkycstatus_3_l12:
+intc_1 // 1
+b getkycstatus_3_l2
+getkycstatus_3_l13:
+retsub
+
+// get_regulator
+getregulator_4:
+proto 0 1
+bytec_0 // ""
+bytec_2 // "regulator"
+app_global_get
+frame_bury 0
+frame_dig 0
+len
+intc_2 // 32
+==
+assert
+retsub
+
+// get_kyc_provider
+getkycprovider_5:
+proto 0 1
+bytec_0 // ""
+bytec 4 // "kyc_provider"
+app_global_get
+frame_bury 0
+frame_dig 0
+len
+intc_2 // 32
+==
+assert
+retsub
+
+// initialize_caster
+initializecaster_6:
+proto 0 0
+bytec_0 // ""
+dup
+txna ApplicationArgs 1
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+frame_dig 0
+frame_dig 1
+callsub initialize_0
+retsub
+
+// register_jurisdiction_regulator_caster
+registerjurisdictionregulatorcaster_7:
+proto 0 0
+bytec_0 // ""
+dup
+txna ApplicationArgs 1
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+frame_dig 0
+frame_dig 1
+callsub registerjurisdictionregulator_1
+retsub
+
+// set_kyc_status_caster
+setkycstatuscaster_8:
+proto 0 0
+bytec_0 // ""
+dup
+intc_0 // 0
+txna ApplicationArgs 1
+frame_bury 0
+txna ApplicationArgs 2
+frame_bury 1
+txna ApplicationArgs 3
+btoi
+frame_bury 2
+frame_dig 0
+frame_dig 1
+frame_dig 2
+callsub setkycstatus_2
+retsub
+
+// get_kyc_status_caster
+getkycstatuscaster_9:
+proto 0 0
+bytec_0 // ""
+dup
+txna ApplicationArgs 1
+frame_bury 1
+frame_dig 1
+callsub getkycstatus_3
+frame_bury 0
+bytec 5 // 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
+
+// get_regulator_caster
+getregulatorcaster_10:
+proto 0 0
+bytec_0 // ""
+callsub getregulator_4
+frame_bury 0
+bytec 5 // 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
+
+// get_kyc_provider_caster
+getkycprovidercaster_11:
+proto 0 0
+bytec_0 // ""
+callsub getkycprovider_5
+frame_bury 0
+bytec 5 // 0x151f7c75
+frame_dig 0
+concat
+log
+retsub
