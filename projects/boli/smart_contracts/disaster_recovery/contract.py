@@ -97,6 +97,32 @@ def create():
     """Initialize the app - basic setup only"""
     return Approve()
 
+# ADDED: BOLI configuration method
+@disaster_recovery_app.external
+def configure_boli_integration(
+    asset_registry_id: abi.Uint64,
+    treasury_app_id: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Configure the contract with BOLI integration"""
+    
+    # Only allow the creator to configure
+    assert_creator = ContractBase.assert_sender_is_creator(disaster_recovery_app)
+    
+    # Store configuration
+    store_config = Seq([
+        disaster_recovery_app.state.asset_registry_id.set(asset_registry_id.get()),
+        disaster_recovery_app.state.treasury_app_id.set(treasury_app_id.get())
+    ])
+    
+    return Seq([
+        assert_creator,
+        store_config,
+        output.set(Int(1))  # True
+    ])
+
+# MODIFIED: Added BOLI integration
 @disaster_recovery_app.external
 def create_bond(
     name: abi.String,
@@ -112,10 +138,11 @@ def create_bond(
     oracle_provider: abi.String,
     bond_document_hash: abi.String,
     total_bond_value: abi.Uint64,
+    boli_allocation: abi.Uint64,  # NEW: BOLI allocation amount
     *,
     output: abi.Uint64
 ) -> Expr:
-    """Creates a new disaster recovery bond"""
+    """Creates a new disaster recovery bond with BOLI allocation"""
     
     # Only allow the creator to create bonds
     assert_creator = ContractBase.assert_sender_is_creator(disaster_recovery_app)
@@ -193,6 +220,15 @@ def create_bond(
         disaster_recovery_app.state.bondholders_count.set(Int(0))
     ])
     
+    # NEW: Register with Asset Registry for BOLI allocation
+    register_for_boli = ContractBase.register_with_asset_registry(
+        disaster_recovery_app,
+        name.get(),
+        Bytes("disaster-bond"),
+        jurisdiction_code.get(),
+        boli_allocation.get()
+    )
+    
     return Seq([
         assert_creator,
         validate_maturity,
@@ -201,7 +237,90 @@ def create_bond(
         store_asset_id,
         store_base_info,
         store_bond_info,
+        # Only register with BOLI if allocation amount is greater than 0
+        If(
+            boli_allocation.get() > Int(0),
+            register_for_boli,
+            Seq([])  # No-op if no BOLI allocation
+        ),
         output.set(asset_id)
+    ])
+
+# ADDED: Update funding status method
+@disaster_recovery_app.external
+def update_funding_status(
+    new_status: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Updates the bond funding status"""
+    
+    # Only allow the creator to update status
+    is_authorized = Txn.sender() == Global.creator_address()
+    
+    assert_authorized = Assert(
+        is_authorized,
+        comment="Only creator or Asset Registry can update status"
+    )
+    
+    # Update the investment status
+    update_status = ContractBase.update_investment_status(
+        disaster_recovery_app,
+        new_status.get()
+    )
+    
+    return Seq([
+        assert_authorized,
+        update_status,
+        output.set(Int(1))  # True
+    ])
+
+# ADDED: Revenue reporting method (for interest payments on non-triggered bonds)
+@disaster_recovery_app.external
+def report_bond_interest(
+    bond_asset_id: abi.Uint64,
+    interest_amount: abi.Uint64,
+    interest_period: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Reports bond interest for distribution to bondholders"""
+    
+    # Only allow the creator to report interest
+    assert_creator = ContractBase.assert_sender_is_creator(disaster_recovery_app)
+    
+    # Verify the bond is in active status and not triggered
+    is_active_not_triggered = And(
+        disaster_recovery_app.state.investment_status.get() == Bytes("active"),
+        disaster_recovery_app.state.is_triggered.get() == Int(0)
+    )
+    
+    assert_active = Assert(
+        is_active_not_triggered,
+        comment="Bond is not in active status or has been triggered"
+    )
+    
+    # Create distribution note
+    distribution_note = Concat(
+        Bytes("Bond Interest: "),
+        Int2Str(interest_amount.get()),
+        Bytes(" | Period: "),
+        interest_period.get()
+    )
+    
+    # Distribute interest to bondholders
+    distribute = ContractBase.distribute_revenue(
+        disaster_recovery_app,
+        interest_amount.get(),
+        Bytes("bond-interest"),
+        distribution_note
+    )
+    
+    return Seq([
+        assert_creator,
+        assert_active,
+        distribute,
+        output.set(Int(1))  # True
     ])
 
 @disaster_recovery_app.external
@@ -472,7 +591,8 @@ def get_bond_status(
         Bytes(" | Maturity: "), Int2Str(disaster_recovery_app.state.maturity_date.get()),
         Bytes(" | Investors: "), Int2Str(disaster_recovery_app.state.bondholders_count.get()),
         Bytes(" | Total Value: "), Int2Str(disaster_recovery_app.state.total_bond_value.get()),
-        Bytes(" | Coverage: "), Int2Str(disaster_recovery_app.state.coverage_amount.get())
+        Bytes(" | Coverage: "), Int2Str(disaster_recovery_app.state.coverage_amount.get()),
+        Bytes(" | Investment Status: "), disaster_recovery_app.state.investment_status.get()
     )
     
     return Seq([

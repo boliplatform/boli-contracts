@@ -1,4 +1,4 @@
-# ~/Desktop/boli/projects/boli/smart_contracts/renewable_energy/contract.py
+# ~/Desktop/boli/projects/boli/smart_contracts/renewable_energy/contract.py (UPDATED)
 
 from pyteal import *
 from beaker import *
@@ -52,6 +52,32 @@ def create():
     """Initialize the app - basic setup only"""
     return Approve()
 
+# BOLI Configuration Method
+@renewable_energy_app.external
+def configure_boli_integration(
+    asset_registry_id: abi.Uint64,
+    treasury_app_id: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Configure the contract with BOLI integration"""
+    
+    # Only allow the creator to configure
+    assert_creator = ContractBase.assert_sender_is_creator(renewable_energy_app)
+    
+    # Store configuration
+    store_config = Seq([
+        renewable_energy_app.state.asset_registry_id.set(asset_registry_id.get()),
+        renewable_energy_app.state.treasury_app_id.set(treasury_app_id.get())
+    ])
+    
+    return Seq([
+        assert_creator,
+        store_config,
+        output.set(Int(1))  # True
+    ])
+
+# MODIFIED: Added BOLI integration
 @renewable_energy_app.external
 def create_energy_project(
     project_name: abi.String,
@@ -64,10 +90,11 @@ def create_energy_project(
     fraction_count: abi.Uint64,
     technical_specs_hash: abi.String,
     jurisdiction_code: abi.String,
+    boli_allocation: abi.Uint64,  # NEW: BOLI allocation amount
     *,
     output: abi.Uint64
 ) -> Expr:
-    """Creates a renewable energy infrastructure asset"""
+    """Creates a renewable energy infrastructure asset with BOLI token allocation"""
     
     # Only allow the creator to create energy projects
     assert_creator = ContractBase.assert_sender_is_creator(renewable_energy_app)
@@ -144,152 +171,102 @@ def create_energy_project(
         renewable_energy_app.state.last_updated.set(Global.latest_timestamp())
     ])
     
+    # NEW: Register with Asset Registry for BOLI allocation
+    register_for_boli = ContractBase.register_with_asset_registry(
+        renewable_energy_app,
+        project_name.get(),
+        Bytes("renewable-energy"),
+        jurisdiction_code.get(),
+        boli_allocation.get()
+    )
+    
     return Seq([
         assert_creator,
         store_energy_info,
         create_token,
         store_asset_id,
         store_base_info,
+        # Only register with BOLI if allocation amount is greater than 0
+        If(
+            boli_allocation.get() > Int(0),
+            register_for_boli,
+            Seq([])  # No-op if no BOLI allocation
+        ),
         output.set(asset_id)
     ])
 
+# ADDED: Update funding status method
 @renewable_energy_app.external
-def create_energy_production_certificates(
-    project_asset_id: abi.Uint64,
-    production_period_start: abi.Uint64,
-    production_period_end: abi.Uint64,
-    energy_produced: abi.Uint64,
-    meter_reading_hash: abi.String,
-    *,
-    output: abi.Uint64
-) -> Expr:
-    """Creates energy production certificates (similar to RECs)"""
-    
-    # Ensure the project asset exists and matches our records
-    asset_id_check = Assert(
-        renewable_energy_app.state.asset_id.get() == project_asset_id.get(),
-        comment="Project Asset ID mismatch"
-    )
-    
-    # Only allow the creator to issue certificates
-    assert_creator = ContractBase.assert_sender_is_creator(renewable_energy_app)
-    
-    # Validate time period
-    validate_period = Assert(
-        production_period_start.get() < production_period_end.get(),
-        comment="Invalid production period"
-    )
-    
-    # Get project details
-    energy_type = renewable_energy_app.state.energy_type.get()
-    
-    # Format period end date for certificate name
-    end_date_string = Int2Str(production_period_end.get())
-    
-    # Generate certificate name
-    asset_name = Concat(
-        Bytes("REC-"),
-        energy_type,
-        Bytes("-"),
-        Int2Str(project_asset_id.get()),
-        Bytes("-"),
-        end_date_string
-    )
-    unit_name = Bytes("REC")
-    
-    # Prepare note with additional metadata
-    note = Concat(
-        Bytes("Renewable Energy Certificate | Project: "),
-        Int2Str(project_asset_id.get()),
-        Bytes(" | Period: "),
-        Int2Str(production_period_start.get()),
-        Bytes("-"),
-        Int2Str(production_period_end.get()),
-        Bytes(" | Energy: "),
-        Int2Str(energy_produced.get()),
-        Bytes("kWh")
-    )
-    
-    # Create one certificate per megawatt-hour of renewable energy
-    total_certificates = Div(energy_produced.get(), Int(1000))  # Convert kWh to MWh
-    
-    # Fix inner transaction syntax
-    create_token = Seq(
-        InnerTxnBuilder.Begin(),
-        InnerTxnBuilder.SetFields({
-            TxnField.type_enum: TxnType.AssetConfig,
-            TxnField.config_asset_total: total_certificates,
-            TxnField.config_asset_decimals: Int(0),  # Non-divisible certificates
-            TxnField.config_asset_default_frozen: Int(0),
-            TxnField.config_asset_manager: Global.current_application_address(),
-            TxnField.config_asset_reserve: Txn.sender(),
-            TxnField.config_asset_freeze: Global.current_application_address(),
-            TxnField.config_asset_clawback: Global.current_application_address(),
-            TxnField.config_asset_unit_name: unit_name,
-            TxnField.config_asset_name: asset_name,
-            TxnField.config_asset_url: Concat(Bytes("ipfs://"), meter_reading_hash.get()),
-            TxnField.note: note
-        }),
-        InnerTxnBuilder.Submit()
-    )
-    
-    # Get certificate asset ID
-    certificate_asset_id = InnerTxn.created_asset_id()
-    
-    return Seq([
-        asset_id_check,
-        assert_creator,
-        validate_period,
-        create_token,
-        output.set(certificate_asset_id)
-    ])
-
-@renewable_energy_app.external
-def update_project_performance(
-    project_asset_id: abi.Uint64,
-    actual_output: abi.Uint64,
-    performance_rating: abi.Uint64,
-    maintenance_status: abi.String,
+def update_funding_status(
+    new_status: abi.String,
     *,
     output: abi.Bool
 ) -> Expr:
-    """Updates project performance metrics"""
+    """Updates the project funding status"""
     
-    # Ensure the project asset exists and matches our records
-    asset_id_check = Assert(
-        renewable_energy_app.state.asset_id.get() == project_asset_id.get(),
-        comment="Project Asset ID mismatch"
+    # Only allow the creator to update status
+    is_authorized = Txn.sender() == Global.creator_address()
+    
+    assert_authorized = Assert(
+        is_authorized,
+        comment="Only creator or Asset Registry can update status"
     )
     
-    # Only allow the creator to update project performance
-    assert_creator = ContractBase.assert_sender_is_creator(renewable_energy_app)
-    
-    # Validate performance rating (1-100)
-    validate_rating = Assert(
-        And(
-            performance_rating.get() >= Int(1),
-            performance_rating.get() <= Int(100)
-        ),
-        comment="Performance rating must be between 1 and 100"
-    )
-    
-    # Update project metrics in additional metadata
-    updated_metadata = Concat(
-        renewable_energy_app.state.metadata.get(),
-        Bytes("|performance:"),
-        Int2Str(performance_rating.get()),
-        Bytes("|maintenance:"),
-        maintenance_status.get(),
-        Bytes("|actualOutput:"),
-        Int2Str(actual_output.get())
+    # Update the investment status
+    update_status = ContractBase.update_investment_status(
+        renewable_energy_app,
+        new_status.get()
     )
     
     return Seq([
-        asset_id_check,
+        assert_authorized,
+        update_status,
+        output.set(Int(1))  # True
+    ])
+
+# ADDED: Report energy production revenue
+@renewable_energy_app.external
+def report_energy_revenue(
+    revenue_amount: abi.Uint64,
+    energy_produced: abi.Uint64,
+    period_start: abi.Uint64,
+    period_end: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Reports energy production revenue for distribution to token holders"""
+    
+    # Only allow the creator to report revenue
+    assert_creator = ContractBase.assert_sender_is_creator(renewable_energy_app)
+    
+    # Verify the project is in active status
+    assert_active = Assert(
+        renewable_energy_app.state.investment_status.get() == Bytes("active"),
+        comment="Project is not in active status"
+    )
+    
+    # Create distribution note
+    distribution_note = Concat(
+        Bytes("Energy Production: "),
+        Int2Str(energy_produced.get()),
+        Bytes("kWh | Period: "),
+        Int2Str(period_start.get()),
+        Bytes("-"),
+        Int2Str(period_end.get())
+    )
+    
+    # Distribute revenue to token holders
+    distribute = ContractBase.distribute_revenue(
+        renewable_energy_app,
+        revenue_amount.get(),
+        Bytes("energy-production"),
+        distribution_note
+    )
+    
+    return Seq([
         assert_creator,
-        validate_rating,
-        renewable_energy_app.state.metadata.set(updated_metadata),
-        renewable_energy_app.state.last_updated.set(Global.latest_timestamp()),
+        assert_active,
+        distribute,
         output.set(Int(1))  # True
     ])
 
@@ -316,7 +293,8 @@ def get_energy_project_details(
         Bytes(" | Installation Date: "), Int2Str(renewable_energy_app.state.installation_date.get()),
         Bytes(" | Project Lifespan: "), Int2Str(renewable_energy_app.state.project_lifespan.get()), Bytes(" seconds"),
         Bytes(" | Jurisdiction: "), renewable_energy_app.state.jurisdiction_code.get(),
-        Bytes(" | Location: "), renewable_energy_app.state.geolocation.get()
+        Bytes(" | Location: "), renewable_energy_app.state.geolocation.get(),
+        Bytes(" | Investment Status: "), renewable_energy_app.state.investment_status.get()
     )
     
     return Seq([

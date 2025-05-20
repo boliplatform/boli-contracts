@@ -1,4 +1,4 @@
-# ~/Desktop/boli/projects/boli/build_all_contracts.py
+# ~/Desktop/boli/projects/boli/build_all_contracts.py (UPDATED)
 
 #!/usr/bin/env python3
 
@@ -77,6 +77,17 @@ def build_contract(contract_dir):
     contract_name = os.path.basename(contract_dir)
     contract_path = os.path.join(contract_dir, "contract.py")
     
+    # Handle special case for BOLI token and other new contracts that don't follow the standard naming
+    if contract_name == "boli_token" or contract_name == "treasury" or contract_name == "asset_registry" or \
+       contract_name == "investment_manager" or contract_name == "revenue_distribution" or contract_name == "token_allocation":
+        contract_files = [f for f in os.listdir(contract_dir) if f.endswith('.py') and f != '__init__.py']
+        if contract_files:
+            contract_path = os.path.join(contract_dir, contract_files[0])
+    
+    if not os.path.exists(contract_path):
+        logger.warning(f"No contract file found for {contract_name}")
+        return False
+    
     logger.info(f"Building contract: {contract_name}")
     
     # Fix any Itoa references
@@ -132,8 +143,17 @@ def main():
         for d in os.listdir(contracts_root):
             full_path = os.path.join(contracts_root, d)
             if os.path.isdir(full_path) and not d.startswith('_'):
+                # Check for standard contract.py
                 contract_file = os.path.join(full_path, "contract.py")
-                if os.path.exists(contract_file):
+                
+                # Also check for any Python files for non-standard modules
+                has_py_files = False
+                for file in os.listdir(full_path):
+                    if file.endswith('.py') and file != '__init__.py':
+                        has_py_files = True
+                        break
+                
+                if os.path.exists(contract_file) or has_py_files:
                     contract_dirs.append(full_path)
     except FileNotFoundError:
         logger.error(f"Directory {contracts_root} not found!")

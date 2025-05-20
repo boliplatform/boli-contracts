@@ -10,6 +10,23 @@
             "desc": "Initialize the app - basic setup only"
         },
         {
+            "name": "configure_boli_integration",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_registry_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "treasury_app_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Configure the contract with BOLI integration"
+        },
+        {
             "name": "create_marine_asset",
             "args": [
                 {
@@ -43,12 +60,54 @@
                 {
                     "type": "string",
                     "name": "jurisdiction_code"
+                },
+                {
+                    "type": "uint64",
+                    "name": "boli_allocation"
                 }
             ],
             "returns": {
                 "type": "uint64"
             },
-            "desc": "Creates a tokenized marine resource or right"
+            "desc": "Creates a tokenized marine resource or right with BOLI allocation"
+        },
+        {
+            "name": "update_funding_status",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "new_status"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Updates the marine asset funding status"
+        },
+        {
+            "name": "report_marine_revenue",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "revenue_amount"
+                },
+                {
+                    "type": "string",
+                    "name": "activity_type"
+                },
+                {
+                    "type": "uint64",
+                    "name": "period_start"
+                },
+                {
+                    "type": "uint64",
+                    "name": "period_end"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Reports marine resource revenue for distribution to token holders"
         },
         {
             "name": "is_marine_right_valid",

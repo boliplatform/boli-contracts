@@ -10,6 +10,23 @@
             "desc": "Initialize the app - basic setup only"
         },
         {
+            "name": "configure_boli_integration",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_registry_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "treasury_app_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Configure the contract with BOLI integration"
+        },
+        {
             "name": "create_bond",
             "args": [
                 {
@@ -63,12 +80,50 @@
                 {
                     "type": "uint64",
                     "name": "total_bond_value"
+                },
+                {
+                    "type": "uint64",
+                    "name": "boli_allocation"
                 }
             ],
             "returns": {
                 "type": "uint64"
             },
-            "desc": "Creates a new disaster recovery bond"
+            "desc": "Creates a new disaster recovery bond with BOLI allocation"
+        },
+        {
+            "name": "update_funding_status",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "new_status"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Updates the bond funding status"
+        },
+        {
+            "name": "report_bond_interest",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "bond_asset_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "interest_amount"
+                },
+                {
+                    "type": "string",
+                    "name": "interest_period"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Reports bond interest for distribution to bondholders"
         },
         {
             "name": "invest_in_bond",

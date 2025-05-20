@@ -1,5 +1,7 @@
+
+# ~/Desktop/boli/projects/boli/deploy_contracts.py (UPDATED)
+
 #!/usr/bin/env python3
-# ~/Desktop/boli/projects/boli/deploy_contracts.py
 
 import os
 import sys
@@ -62,12 +64,31 @@ def main():
         "--contract", "-c", 
         help="Specific contract name to deploy (folder name in smart_contracts directory)"
     )
+    # Add argument for BOLI initialization
+    parser.add_argument(
+        "--boli-init", "-b",
+        action="store_true",
+        help="Initialize the BOLI platform (deploy and configure all BOLI contracts)"
+    )
     args = parser.parse_args()
     
     # Get the directory containing this script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     if not script_dir:
         script_dir = "."
+    
+    # Check if BOLI initialization is requested
+    if args.boli_init:
+        logger.info("Running BOLI platform initialization")
+        try:
+            # Import and run the initialization script
+            sys.path.insert(0, script_dir)
+            from initialize_boli_platform import main as init_main
+            init_main()
+            return
+        except Exception as e:
+            logger.error(f"Error initializing BOLI platform: {e}")
+            return
     
     # Build the root of the project
     contracts_root = os.path.join(script_dir, "smart_contracts")

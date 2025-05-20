@@ -72,6 +72,32 @@ def create():
     """Initialize the app - basic setup only"""
     return Approve()
 
+# ADDED: BOLI configuration method
+@carbon_credit_app.external
+def configure_boli_integration(
+    asset_registry_id: abi.Uint64,
+    treasury_app_id: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Configure the contract with BOLI integration"""
+    
+    # Only allow the creator to configure
+    assert_creator = ContractBase.assert_sender_is_creator(carbon_credit_app)
+    
+    # Store configuration
+    store_config = Seq([
+        carbon_credit_app.state.asset_registry_id.set(asset_registry_id.get()),
+        carbon_credit_app.state.treasury_app_id.set(treasury_app_id.get())
+    ])
+    
+    return Seq([
+        assert_creator,
+        store_config,
+        output.set(Int(1))  # True
+    ])
+
+# MODIFIED: Added BOLI integration
 @carbon_credit_app.external
 def create_carbon_project(
     name: abi.String,
@@ -87,10 +113,11 @@ def create_carbon_project(
     verification_methodology: abi.String,
     monitoring_report_hash: abi.String,
     verifier: abi.String,
+    boli_allocation: abi.Uint64,  # NEW: BOLI allocation amount
     *,
     output: abi.Uint64
 ) -> Expr:
-    """Creates a new carbon credit project"""
+    """Creates a new carbon credit project with BOLI allocation"""
     
     # Only allow the creator to create carbon credit projects
     assert_creator = ContractBase.assert_sender_is_creator(carbon_credit_app)
@@ -167,6 +194,15 @@ def create_carbon_project(
         carbon_credit_app.state.verifier.set(verifier.get())
     ])
     
+    # NEW: Register with Asset Registry for BOLI allocation
+    register_for_boli = ContractBase.register_with_asset_registry(
+        carbon_credit_app,
+        name.get(),
+        Bytes("carbon-credit"),
+        jurisdiction_code.get(),
+        boli_allocation.get()
+    )
+    
     return Seq([
         assert_creator,
         validate_vintage,
@@ -175,7 +211,87 @@ def create_carbon_project(
         store_asset_id,
         store_base_info,
         store_carbon_info,
+        # Only register with BOLI if allocation amount is greater than 0
+        If(
+            boli_allocation.get() > Int(0),
+            register_for_boli,
+            Seq([])  # No-op if no BOLI allocation
+        ),
         output.set(asset_id)
+    ])
+
+# ADDED: Update funding status method
+@carbon_credit_app.external
+def update_funding_status(
+    new_status: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Updates the carbon credit project funding status"""
+    
+    # Only allow the creator to update status
+    is_authorized = Txn.sender() == Global.creator_address()
+    
+    assert_authorized = Assert(
+        is_authorized,
+        comment="Only creator or Asset Registry can update status"
+    )
+    
+    # Update the investment status
+    update_status = ContractBase.update_investment_status(
+        carbon_credit_app,
+        new_status.get()
+    )
+    
+    return Seq([
+        assert_authorized,
+        update_status,
+        output.set(Int(1))  # True
+    ])
+
+# ADDED: Revenue reporting method
+@carbon_credit_app.external
+def report_carbon_credit_revenue(
+    revenue_amount: abi.Uint64,
+    credit_sale_amount: abi.Uint64,
+    buyer_type: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Reports carbon credit sale revenue for distribution to token holders"""
+    
+    # Only allow the creator to report revenue
+    assert_creator = ContractBase.assert_sender_is_creator(carbon_credit_app)
+    
+    # Verify the project is in active status
+    assert_active = Assert(
+        carbon_credit_app.state.investment_status.get() == Bytes("active"),
+        comment="Carbon credit project is not in active status"
+    )
+    
+    # Create distribution note
+    distribution_note = Concat(
+        Bytes("Carbon Credit Revenue: "),
+        Int2Str(revenue_amount.get()),
+        Bytes(" | Credits Sold: "),
+        Int2Str(credit_sale_amount.get()),
+        Bytes(" | Buyer Type: "),
+        buyer_type.get()
+    )
+    
+    # Distribute revenue to token holders
+    distribute = ContractBase.distribute_revenue(
+        carbon_credit_app,
+        revenue_amount.get(),
+        Bytes("carbon-credit-revenue"),
+        distribution_note
+    )
+    
+    return Seq([
+        assert_creator,
+        assert_active,
+        distribute,
+        output.set(Int(1))  # True
     ])
 
 @carbon_credit_app.external
@@ -349,7 +465,8 @@ def get_carbon_credit_details(
         Bytes(" | Total Offset: "), Int2Str(carbon_credit_app.state.total_carbon_offset.get()),
         Bytes(" | Remaining: "), Int2Str(carbon_credit_app.state.remaining_offset.get()),
         Bytes(" | Verified by: "), carbon_credit_app.state.verifier.get(),
-        Bytes(" | Jurisdiction: "), carbon_credit_app.state.jurisdiction_code.get()
+        Bytes(" | Jurisdiction: "), carbon_credit_app.state.jurisdiction_code.get(),
+        Bytes(" | Investment Status: "), carbon_credit_app.state.investment_status.get()
     )
     
     return Seq([

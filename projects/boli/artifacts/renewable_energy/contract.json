@@ -10,6 +10,23 @@
             "desc": "Initialize the app - basic setup only"
         },
         {
+            "name": "configure_boli_integration",
+            "args": [
+                {
+                    "type": "uint64",
+                    "name": "asset_registry_id"
+                },
+                {
+                    "type": "uint64",
+                    "name": "treasury_app_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Configure the contract with BOLI integration"
+        },
+        {
             "name": "create_energy_project",
             "args": [
                 {
@@ -51,66 +68,54 @@
                 {
                     "type": "string",
                     "name": "jurisdiction_code"
+                },
+                {
+                    "type": "uint64",
+                    "name": "boli_allocation"
                 }
             ],
             "returns": {
                 "type": "uint64"
             },
-            "desc": "Creates a renewable energy infrastructure asset"
+            "desc": "Creates a renewable energy infrastructure asset with BOLI token allocation"
         },
         {
-            "name": "create_energy_production_certificates",
+            "name": "update_funding_status",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "new_status"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Updates the project funding status"
+        },
+        {
+            "name": "report_energy_revenue",
             "args": [
                 {
                     "type": "uint64",
-                    "name": "project_asset_id"
-                },
-                {
-                    "type": "uint64",
-                    "name": "production_period_start"
-                },
-                {
-                    "type": "uint64",
-                    "name": "production_period_end"
+                    "name": "revenue_amount"
                 },
                 {
                     "type": "uint64",
                     "name": "energy_produced"
                 },
                 {
-                    "type": "string",
-                    "name": "meter_reading_hash"
-                }
-            ],
-            "returns": {
-                "type": "uint64"
-            },
-            "desc": "Creates energy production certificates (similar to RECs)"
-        },
-        {
-            "name": "update_project_performance",
-            "args": [
-                {
                     "type": "uint64",
-                    "name": "project_asset_id"
+                    "name": "period_start"
                 },
                 {
                     "type": "uint64",
-                    "name": "actual_output"
-                },
-                {
-                    "type": "uint64",
-                    "name": "performance_rating"
-                },
-                {
-                    "type": "string",
-                    "name": "maintenance_status"
+                    "name": "period_end"
                 }
             ],
             "returns": {
                 "type": "bool"
             },
-            "desc": "Updates project performance metrics"
+            "desc": "Reports energy production revenue for distribution to token holders"
         },
         {
             "name": "get_energy_project_details",

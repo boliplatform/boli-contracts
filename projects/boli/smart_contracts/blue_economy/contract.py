@@ -47,6 +47,32 @@ def create():
     """Initialize the app - basic setup only"""
     return Approve()
 
+# ADDED: BOLI configuration method
+@blue_economy_app.external
+def configure_boli_integration(
+    asset_registry_id: abi.Uint64,
+    treasury_app_id: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Configure the contract with BOLI integration"""
+    
+    # Only allow the creator to configure
+    assert_creator = ContractBase.assert_sender_is_creator(blue_economy_app)
+    
+    # Store configuration
+    store_config = Seq([
+        blue_economy_app.state.asset_registry_id.set(asset_registry_id.get()),
+        blue_economy_app.state.treasury_app_id.set(treasury_app_id.get())
+    ])
+    
+    return Seq([
+        assert_creator,
+        store_config,
+        output.set(Int(1))  # True
+    ])
+
+# MODIFIED: Added BOLI integration
 @blue_economy_app.external
 def create_marine_asset(
     resource_name: abi.String,
@@ -57,10 +83,11 @@ def create_marine_asset(
     documents_hash: abi.String,
     geo_boundary: abi.String,
     jurisdiction_code: abi.String,
+    boli_allocation: abi.Uint64,  # NEW: BOLI allocation amount
     *,
     output: abi.Uint64,
 ) -> Expr:
-    """Creates a tokenized marine resource or right"""
+    """Creates a tokenized marine resource or right with BOLI allocation"""
     
     # Only allow the creator to create marine assets
     assert_creator = ContractBase.assert_sender_is_creator(blue_economy_app)
@@ -137,6 +164,15 @@ def create_marine_asset(
         blue_economy_app.state.last_updated.set(Global.latest_timestamp())
     ])
     
+    # NEW: Register with Asset Registry for BOLI allocation
+    register_for_boli = ContractBase.register_with_asset_registry(
+        blue_economy_app,
+        resource_name.get(),
+        Bytes("blue-economy"),
+        jurisdiction_code.get(),
+        boli_allocation.get()
+    )
+    
     return Seq([
         assert_creator,
         assert_rating,
@@ -147,7 +183,90 @@ def create_marine_asset(
         create_token,
         store_asset_id,
         store_base_info,
+        # Only register with BOLI if allocation amount is greater than 0
+        If(
+            boli_allocation.get() > Int(0),
+            register_for_boli,
+            Seq([])  # No-op if no BOLI allocation
+        ),
         output.set(asset_id)
+    ])
+
+# ADDED: Update funding status method
+@blue_economy_app.external
+def update_funding_status(
+    new_status: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Updates the marine asset funding status"""
+    
+    # Only allow the creator to update status
+    is_authorized = Txn.sender() == Global.creator_address()
+    
+    assert_authorized = Assert(
+        is_authorized,
+        comment="Only creator or Asset Registry can update status"
+    )
+    
+    # Update the investment status
+    update_status = ContractBase.update_investment_status(
+        blue_economy_app,
+        new_status.get()
+    )
+    
+    return Seq([
+        assert_authorized,
+        update_status,
+        output.set(Int(1))  # True
+    ])
+
+# ADDED: Marine revenue reporting method
+@blue_economy_app.external
+def report_marine_revenue(
+    revenue_amount: abi.Uint64,
+    activity_type: abi.String,
+    period_start: abi.Uint64,
+    period_end: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Reports marine resource revenue for distribution to token holders"""
+    
+    # Only allow the creator to report revenue
+    assert_creator = ContractBase.assert_sender_is_creator(blue_economy_app)
+    
+    # Verify the asset is in active status
+    assert_active = Assert(
+        blue_economy_app.state.investment_status.get() == Bytes("active"),
+        comment="Marine asset is not in active status"
+    )
+    
+    # Create distribution note
+    distribution_note = Concat(
+        Bytes("Marine Revenue: "),
+        Int2Str(revenue_amount.get()),
+        Bytes(" | Activity: "),
+        activity_type.get(),
+        Bytes(" | Period: "),
+        Int2Str(period_start.get()),
+        Bytes("-"),
+        Int2Str(period_end.get())
+    )
+    
+    # Distribute revenue to token holders
+    distribute = ContractBase.distribute_revenue(
+        blue_economy_app,
+        revenue_amount.get(),
+        Bytes("marine-revenue"),
+        distribution_note
+    )
+    
+    return Seq([
+        assert_creator,
+        assert_active,
+        distribute,
+        output.set(Int(1))  # True
     ])
 
 @blue_economy_app.external(read_only=True)
@@ -299,7 +418,8 @@ def get_marine_asset_details(
         Bytes(" | Type: "), blue_economy_app.state.resource_type.get(),
         Bytes(" | Marine Zone: "), blue_economy_app.state.marine_zone.get(),
         Bytes(" | Jurisdiction: "), blue_economy_app.state.jurisdiction_code.get(),
-        Bytes(" | Sustainability Rating: "), Int2Str(blue_economy_app.state.sustainability_rating.get()), Bytes("/100")
+        Bytes(" | Sustainability Rating: "), Int2Str(blue_economy_app.state.sustainability_rating.get()), Bytes("/100"),
+        Bytes(" | Investment Status: "), blue_economy_app.state.investment_status.get()
     )
     
     # Add expiration info

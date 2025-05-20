@@ -57,6 +57,32 @@ def create():
     """Initialize the app - basic setup only"""
     return Approve()
 
+# ADDED: BOLI Configuration Method
+@land_property_app.external
+def configure_boli_integration(
+    asset_registry_id: abi.Uint64,
+    treasury_app_id: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Configure the contract with BOLI integration"""
+    
+    # Only allow the creator to configure
+    assert_creator = ContractBase.assert_sender_is_creator(land_property_app)
+    
+    # Store configuration
+    store_config = Seq([
+        land_property_app.state.asset_registry_id.set(asset_registry_id.get()),
+        land_property_app.state.treasury_app_id.set(treasury_app_id.get())
+    ])
+    
+    return Seq([
+        assert_creator,
+        store_config,
+        output.set(Int(1))  # True
+    ])
+
+# MODIFIED: Added BOLI integration
 @land_property_app.external
 def create_property(
     name: abi.String,
@@ -67,10 +93,11 @@ def create_property(
     geolocation: abi.String,
     valuation_amount: abi.Uint64,
     legal_document_hash: abi.String,
+    boli_allocation: abi.Uint64,  # NEW: BOLI allocation amount
     *,
     output: abi.Uint64
 ) -> Expr:
-    """Creates a new tokenized property"""
+    """Creates a new tokenized property with BOLI allocation"""
     
     # Only allow the creator to create properties
     assert_creator = ContractBase.assert_sender_is_creator(land_property_app)
@@ -129,13 +156,102 @@ def create_property(
         land_property_app.state.fractionalized_status.set(Int(0))  # False
     ])
     
+    # NEW: Register with Asset Registry for BOLI allocation
+    register_for_boli = ContractBase.register_with_asset_registry(
+        land_property_app,
+        name.get(),
+        Bytes("land-property"),
+        jurisdiction_code.get(),
+        boli_allocation.get()
+    )
+    
     return Seq([
         assert_creator,
         create_token,
         store_asset_id,
         store_base_info,
         store_property_info,
+        # Only register with BOLI if allocation amount is greater than 0
+        If(
+            boli_allocation.get() > Int(0),
+            register_for_boli,
+            Seq([])  # No-op if no BOLI allocation
+        ),
         output.set(asset_id)
+    ])
+
+# ADDED: Update funding status method
+@land_property_app.external
+def update_funding_status(
+    new_status: abi.String,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Updates the property funding status"""
+    
+    # Only allow the creator to update status
+    is_authorized = Txn.sender() == Global.creator_address()
+    
+    assert_authorized = Assert(
+        is_authorized,
+        comment="Only creator or Asset Registry can update status"
+    )
+    
+    # Update the investment status
+    update_status = ContractBase.update_investment_status(
+        land_property_app,
+        new_status.get()
+    )
+    
+    return Seq([
+        assert_authorized,
+        update_status,
+        output.set(Int(1))  # True
+    ])
+
+# ADDED: Revenue reporting method
+@land_property_app.external
+def report_rental_revenue(
+    revenue_amount: abi.Uint64,
+    rental_period_start: abi.Uint64,
+    rental_period_end: abi.Uint64,
+    *,
+    output: abi.Bool
+) -> Expr:
+    """Reports rental revenue for distribution to token holders"""
+    
+    # Only allow the creator to report revenue
+    assert_creator = ContractBase.assert_sender_is_creator(land_property_app)
+    
+    # Verify the property is in active status
+    assert_active = Assert(
+        land_property_app.state.investment_status.get() == Bytes("active"),
+        comment="Property is not in active status"
+    )
+    
+    # Create distribution note
+    distribution_note = Concat(
+        Bytes("Rental Revenue: "),
+        Int2Str(revenue_amount.get()),
+        Bytes(" | Period: "),
+        Int2Str(rental_period_start.get()),
+        Bytes("-"),
+        Int2Str(rental_period_end.get())
+    )
+    
+    # Distribute revenue to token holders
+    distribute = ContractBase.distribute_revenue(
+        land_property_app,
+        revenue_amount.get(),
+        Bytes("rental-revenue"),
+        distribution_note
+    )
+    
+    return Seq([
+        assert_creator,
+        assert_active,
+        distribute,
+        output.set(Int(1))  # True
     ])
 
 @land_property_app.external
@@ -329,7 +445,8 @@ def get_property_details(
             land_property_app.state.fractionalized_status.get() == Int(1),
             Bytes("Yes"),
             Bytes("No")
-        )
+        ),
+        Bytes(" | Investment Status: "), land_property_app.state.investment_status.get()
     )
     
     # Add fractional asset ID if fractionalized
