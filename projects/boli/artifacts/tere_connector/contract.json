@@ -1,0 +1,96 @@
+{
+    "name": "TEREConnector",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the connector"
+        },
+        {
+            "name": "add_trusted_executor",
+            "args": [
+                {
+                    "type": "address",
+                    "name": "executor_address"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Add a trusted TERE executor"
+        },
+        {
+            "name": "register_execution",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "execution_id"
+                },
+                {
+                    "type": "string",
+                    "name": "execution_type"
+                },
+                {
+                    "type": "string",
+                    "name": "execution_metadata"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Register a TERE execution"
+        },
+        {
+            "name": "submit_execution_result",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "execution_id"
+                },
+                {
+                    "type": "string",
+                    "name": "result_data"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Submit result from a TERE execution"
+        },
+        {
+            "name": "get_execution_result",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "execution_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get the result of a TERE execution"
+        },
+        {
+            "name": "verify_execution",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "execution_id"
+                },
+                {
+                    "type": "string",
+                    "name": "expected_type"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Verify an execution is of the expected type"
+        }
+    ],
+    "networks": {},
+    "desc": "Connector for TERE Trustless External Resource Executor"
+}

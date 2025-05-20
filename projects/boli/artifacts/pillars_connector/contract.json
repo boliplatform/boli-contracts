@@ -1,0 +1,79 @@
+{
+    "name": "PillarsStorageConnector",
+    "methods": [
+        {
+            "name": "create",
+            "args": [],
+            "returns": {
+                "type": "void"
+            },
+            "desc": "Initialize the connector"
+        },
+        {
+            "name": "register_content",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "content_id"
+                },
+                {
+                    "type": "string",
+                    "name": "pillars_location"
+                },
+                {
+                    "type": "string",
+                    "name": "content_hash"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Register content stored in Pillars"
+        },
+        {
+            "name": "verify_content",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "content_id"
+                },
+                {
+                    "type": "string",
+                    "name": "verification_proof"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Verify content against proof from Pillars"
+        },
+        {
+            "name": "get_content_location",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "content_id"
+                }
+            ],
+            "returns": {
+                "type": "string"
+            },
+            "desc": "Get the Pillars location for registered content"
+        },
+        {
+            "name": "is_content_verified",
+            "args": [
+                {
+                    "type": "string",
+                    "name": "content_id"
+                }
+            ],
+            "returns": {
+                "type": "bool"
+            },
+            "desc": "Check if content has been verified"
+        }
+    ],
+    "networks": {},
+    "desc": "Connector for Pillars Verifiable Storage"
+}

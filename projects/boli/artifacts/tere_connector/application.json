@@ -1,0 +1,163 @@
+{
+    "hints": {
+        "create()void": {
+            "call_config": {
+                "no_op": "CREATE"
+            }
+        },
+        "add_trusted_executor(address)bool": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "register_execution(string,string,string)bool": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "submit_execution_result(string,string)bool": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_execution_result(string)string": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "verify_execution(string,string)bool": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4IDB4NjU3ODY1NjMgMHgxNTFmN2M3NSAweDY1Nzg2NTYzNzU3NDZmNzIgMHg3MjY1NzM3NTZjNzQgMHgwMCAweDYxNjQ2ZDY5NmU1ZjYxNjQ2NDcyNjU3MzczIDB4NzQ3Mjc1NjUKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg0YzVjNjFiYSAvLyAiY3JlYXRlKCl2b2lkIgo9PQpibnogbWFpbl9sMTIKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHgyODQ1MTRiYiAvLyAiYWRkX3RydXN0ZWRfZXhlY3V0b3IoYWRkcmVzcylib29sIgo9PQpibnogbWFpbl9sMTEKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHgwMWMzMGQzMiAvLyAicmVnaXN0ZXJfZXhlY3V0aW9uKHN0cmluZyxzdHJpbmcsc3RyaW5nKWJvb2wiCj09CmJueiBtYWluX2wxMAp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweDNjZWU1NWFjIC8vICJzdWJtaXRfZXhlY3V0aW9uX3Jlc3VsdChzdHJpbmcsc3RyaW5nKWJvb2wiCj09CmJueiBtYWluX2w5CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4N2M2MzFiNGUgLy8gImdldF9leGVjdXRpb25fcmVzdWx0KHN0cmluZylzdHJpbmciCj09CmJueiBtYWluX2w4CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4OGVmMDVhNGUgLy8gInZlcmlmeV9leGVjdXRpb24oc3RyaW5nLHN0cmluZylib29sIgo9PQpibnogbWFpbl9sNwplcnIKbWFpbl9sNzoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiB2ZXJpZnlleGVjdXRpb25jYXN0ZXJfMTEKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDg6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgZ2V0ZXhlY3V0aW9ucmVzdWx0Y2FzdGVyXzEwCmludGNfMSAvLyAxCnJldHVybgptYWluX2w5Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHN1Ym1pdGV4ZWN1dGlvbnJlc3VsdGNhc3Rlcl85CmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiByZWdpc3RlcmV4ZWN1dGlvbmNhc3Rlcl84CmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMToKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAohPQomJgphc3NlcnQKY2FsbHN1YiBhZGR0cnVzdGVkZXhlY3V0b3JjYXN0ZXJfNwppbnRjXzEgLy8gMQpyZXR1cm4KbWFpbl9sMTI6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKPT0KJiYKYXNzZXJ0CmNhbGxzdWIgY3JlYXRlY2FzdGVyXzYKaW50Y18xIC8vIDEKcmV0dXJuCgovLyBjcmVhdGUKY3JlYXRlXzA6CnByb3RvIDAgMApieXRlYyA2IC8vICJhZG1pbl9hZGRyZXNzIgpnbG9iYWwgQ3JlYXRvckFkZHJlc3MKYXBwX2dsb2JhbF9wdXQKaW50Y18xIC8vIDEKcmV0dXJuCgovLyBhZGRfdHJ1c3RlZF9leGVjdXRvcgphZGR0cnVzdGVkZXhlY3V0b3JfMToKcHJvdG8gMSAxCmludGNfMCAvLyAwCnR4biBTZW5kZXIKYnl0ZWMgNiAvLyAiYWRtaW5fYWRkcmVzcyIKYXBwX2dsb2JhbF9nZXQKPT0KLy8gT25seSBhZG1pbiBjYW4gYWRkIGV4ZWN1dG9ycwphc3NlcnQKYnl0ZWNfMyAvLyAiZXhlY3V0b3IiCmZyYW1lX2RpZyAtMQpjb25jYXQKYm94X2RlbApwb3AKYnl0ZWNfMyAvLyAiZXhlY3V0b3IiCmZyYW1lX2RpZyAtMQpjb25jYXQKYnl0ZWMgNyAvLyAidHJ1ZSIKYm94X3B1dAppbnRjXzEgLy8gMQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gcmVnaXN0ZXJfZXhlY3V0aW9uCnJlZ2lzdGVyZXhlY3V0aW9uXzI6CnByb3RvIDMgMQppbnRjXzAgLy8gMApieXRlY18xIC8vICJleGVjIgpmcmFtZV9kaWcgLTMKY29uY2F0CmJveF9kZWwKcG9wCmJ5dGVjXzEgLy8gImV4ZWMiCmZyYW1lX2RpZyAtMwpjb25jYXQKZnJhbWVfZGlnIC0yCmV4dHJhY3QgMiAwCnB1c2hieXRlcyAweDNhIC8vICI6Igpjb25jYXQKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmNvbmNhdApib3hfcHV0CmludGNfMSAvLyAxCiEKIQpmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyBzdWJtaXRfZXhlY3V0aW9uX3Jlc3VsdApzdWJtaXRleGVjdXRpb25yZXN1bHRfMzoKcHJvdG8gMiAxCmludGNfMCAvLyAwCmJ5dGVjXzEgLy8gImV4ZWMiCmZyYW1lX2RpZyAtMgpjb25jYXQKYm94X2xlbgpzdG9yZSAxCnN0b3JlIDAKbG9hZCAxCi8vIEV4ZWN1dGlvbiBub3QgcmVnaXN0ZXJlZAphc3NlcnQKYnl0ZWNfMyAvLyAiZXhlY3V0b3IiCnR4biBTZW5kZXIKY29uY2F0CmJveF9sZW4Kc3RvcmUgMwpzdG9yZSAyCmxvYWQgMwpieXRlY18zIC8vICJleGVjdXRvciIKdHhuIFNlbmRlcgpjb25jYXQKYm94X2dldApzdG9yZSA1CnN0b3JlIDQKbG9hZCA1CmFzc2VydApsb2FkIDQKYnl0ZWMgNyAvLyAidHJ1ZSIKPT0KJiYKLy8gTm90IGEgdHJ1c3RlZCBleGVjdXRvcgphc3NlcnQKYnl0ZWMgNCAvLyAicmVzdWx0IgpmcmFtZV9kaWcgLTIKY29uY2F0CmJveF9kZWwKcG9wCmJ5dGVjIDQgLy8gInJlc3VsdCIKZnJhbWVfZGlnIC0yCmNvbmNhdApmcmFtZV9kaWcgLTEKZXh0cmFjdCAyIDAKYm94X3B1dAppbnRjXzEgLy8gMQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gZ2V0X2V4ZWN1dGlvbl9yZXN1bHQKZ2V0ZXhlY3V0aW9ucmVzdWx0XzQ6CnByb3RvIDEgMQpieXRlY18wIC8vICIiCmJ5dGVjIDQgLy8gInJlc3VsdCIKZnJhbWVfZGlnIC0xCmNvbmNhdApib3hfbGVuCnN0b3JlIDcKc3RvcmUgNgpsb2FkIDcKLy8gTm8gcmVzdWx0IGZvciB0aGlzIGV4ZWN1dGlvbgphc3NlcnQKYnl0ZWMgNCAvLyAicmVzdWx0IgpmcmFtZV9kaWcgLTEKY29uY2F0CmJveF9nZXQKc3RvcmUgOQpzdG9yZSA4CmxvYWQgOQphc3NlcnQKbG9hZCA4CmZyYW1lX2J1cnkgMApmcmFtZV9kaWcgMApsZW4KaXRvYgpleHRyYWN0IDYgMApmcmFtZV9kaWcgMApjb25jYXQKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gdmVyaWZ5X2V4ZWN1dGlvbgp2ZXJpZnlleGVjdXRpb25fNToKcHJvdG8gMiAxCmludGNfMCAvLyAwCmJ5dGVjXzEgLy8gImV4ZWMiCmZyYW1lX2RpZyAtMgpjb25jYXQKYm94X2xlbgpzdG9yZSAxMQpzdG9yZSAxMApsb2FkIDExCi8vIEV4ZWN1dGlvbiBub3QgcmVnaXN0ZXJlZAphc3NlcnQKYnl0ZWNfMSAvLyAiZXhlYyIKZnJhbWVfZGlnIC0yCmNvbmNhdApib3hfZ2V0CnN0b3JlIDEzCnN0b3JlIDEyCmxvYWQgMTMKYXNzZXJ0CmxvYWQgMTIKaW50Y18wIC8vIDAKZnJhbWVfZGlnIC0xCmV4dHJhY3QgMiAwCmxlbgpzdWJzdHJpbmczCmZyYW1lX2RpZyAtMQpleHRyYWN0IDIgMAo9PQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gY3JlYXRlX2Nhc3RlcgpjcmVhdGVjYXN0ZXJfNjoKcHJvdG8gMCAwCmNhbGxzdWIgY3JlYXRlXzAKcmV0c3ViCgovLyBhZGRfdHJ1c3RlZF9leGVjdXRvcl9jYXN0ZXIKYWRkdHJ1c3RlZGV4ZWN1dG9yY2FzdGVyXzc6CnByb3RvIDAgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCmNhbGxzdWIgYWRkdHJ1c3RlZGV4ZWN1dG9yXzEKZnJhbWVfYnVyeSAwCmJ5dGVjXzIgLy8gMHgxNTFmN2M3NQpieXRlYyA1IC8vIDB4MDAKaW50Y18wIC8vIDAKZnJhbWVfZGlnIDAKc2V0Yml0CmNvbmNhdApsb2cKcmV0c3ViCgovLyByZWdpc3Rlcl9leGVjdXRpb25fY2FzdGVyCnJlZ2lzdGVyZXhlY3V0aW9uY2FzdGVyXzg6CnByb3RvIDAgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCmR1cG4gMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAzCmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpmcmFtZV9kaWcgMwpjYWxsc3ViIHJlZ2lzdGVyZXhlY3V0aW9uXzIKZnJhbWVfYnVyeSAwCmJ5dGVjXzIgLy8gMHgxNTFmN2M3NQpieXRlYyA1IC8vIDB4MDAKaW50Y18wIC8vIDAKZnJhbWVfZGlnIDAKc2V0Yml0CmNvbmNhdApsb2cKcmV0c3ViCgovLyBzdWJtaXRfZXhlY3V0aW9uX3Jlc3VsdF9jYXN0ZXIKc3VibWl0ZXhlY3V0aW9ucmVzdWx0Y2FzdGVyXzk6CnByb3RvIDAgMAppbnRjXzAgLy8gMApieXRlY18wIC8vICIiCmR1cAp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMgpmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpjYWxsc3ViIHN1Ym1pdGV4ZWN1dGlvbnJlc3VsdF8zCmZyYW1lX2J1cnkgMApieXRlY18yIC8vIDB4MTUxZjdjNzUKYnl0ZWMgNSAvLyAweDAwCmludGNfMCAvLyAwCmZyYW1lX2RpZyAwCnNldGJpdApjb25jYXQKbG9nCnJldHN1YgoKLy8gZ2V0X2V4ZWN1dGlvbl9yZXN1bHRfY2FzdGVyCmdldGV4ZWN1dGlvbnJlc3VsdGNhc3Rlcl8xMDoKcHJvdG8gMCAwCmJ5dGVjXzAgLy8gIiIKZHVwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAxCmZyYW1lX2RpZyAxCmNhbGxzdWIgZ2V0ZXhlY3V0aW9ucmVzdWx0XzQKZnJhbWVfYnVyeSAwCmJ5dGVjXzIgLy8gMHgxNTFmN2M3NQpmcmFtZV9kaWcgMApjb25jYXQKbG9nCnJldHN1YgoKLy8gdmVyaWZ5X2V4ZWN1dGlvbl9jYXN0ZXIKdmVyaWZ5ZXhlY3V0aW9uY2FzdGVyXzExOgpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMCAvLyAiIgpkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDEKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMgpmcmFtZV9idXJ5IDIKZnJhbWVfZGlnIDEKZnJhbWVfZGlnIDIKY2FsbHN1YiB2ZXJpZnlleGVjdXRpb25fNQpmcmFtZV9idXJ5IDAKYnl0ZWNfMiAvLyAweDE1MWY3Yzc1CmJ5dGVjIDUgLy8gMHgwMAppbnRjXzAgLy8gMApmcmFtZV9kaWcgMApzZXRiaXQKY29uY2F0CmxvZwpyZXRzdWI=",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 1,
+            "num_uints": 0
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "admin_address": {
+                    "type": "bytes",
+                    "key": "admin_address",
+                    "descr": "Address of the admin"
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "TEREConnector",
+        "methods": [
+            {
+                "name": "create",
+                "args": [],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Initialize the connector"
+            },
+            {
+                "name": "add_trusted_executor",
+                "args": [
+                    {
+                        "type": "address",
+                        "name": "executor_address"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Add a trusted TERE executor"
+            },
+            {
+                "name": "register_execution",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "execution_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "execution_type"
+                    },
+                    {
+                        "type": "string",
+                        "name": "execution_metadata"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Register a TERE execution"
+            },
+            {
+                "name": "submit_execution_result",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "execution_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "result_data"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Submit result from a TERE execution"
+            },
+            {
+                "name": "get_execution_result",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "execution_id"
+                    }
+                ],
+                "returns": {
+                    "type": "string"
+                },
+                "desc": "Get the result of a TERE execution"
+            },
+            {
+                "name": "verify_execution",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "execution_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "expected_type"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Verify an execution is of the expected type"
+            }
+        ],
+        "networks": {},
+        "desc": "Connector for TERE Trustless External Resource Executor"
+    },
+    "bare_call_config": {}
+}

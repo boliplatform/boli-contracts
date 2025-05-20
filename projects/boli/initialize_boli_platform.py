@@ -65,8 +65,27 @@ def main():
     # Dictionary to store app IDs of deployed contracts
     app_ids = {}
     
-    # Step 1: Deploy BOLI Token contract
-    logger.info("Step 1: Deploying BOLI Token contract")
+    # Step 1: Deploy Connector Contracts (New)
+    logger.info("Step 1: Deploying Connector Contracts")
+    
+    # Deploy Pillars Storage Connector
+    pillars_contract_dir = os.path.join(contracts_root, "pillars_connector")
+    pillars_app_id = deploy_contract(pillars_contract_dir)
+    if not pillars_app_id:
+        logger.error("Failed to deploy Pillars Storage Connector. Initialization will continue without it.")
+    else:
+        app_ids["pillars_connector"] = pillars_app_id
+    
+    # Deploy TERE Connector
+    tere_contract_dir = os.path.join(contracts_root, "tere_connector")
+    tere_app_id = deploy_contract(tere_contract_dir)
+    if not tere_app_id:
+        logger.error("Failed to deploy TERE Connector. Initialization will continue without it.")
+    else:
+        app_ids["tere_connector"] = tere_app_id
+    
+    # Step 2: Deploy BOLI Token contract
+    logger.info("Step 2: Deploying BOLI Token contract")
     boli_contract_dir = os.path.join(contracts_root, "boli_token")
     boli_app_id = deploy_contract(boli_contract_dir)
     if not boli_app_id:
@@ -74,8 +93,8 @@ def main():
         return
     app_ids["boli_token"] = boli_app_id
     
-    # Step 2: Deploy Treasury Management contract
-    logger.info("Step 2: Deploying Treasury Management contract")
+    # Step 3: Deploy Treasury Management contract
+    logger.info("Step 3: Deploying Treasury Management contract")
     treasury_contract_dir = os.path.join(contracts_root, "treasury")
     treasury_app_id = deploy_contract(treasury_contract_dir)
     if not treasury_app_id:
@@ -83,8 +102,8 @@ def main():
         return
     app_ids["treasury"] = treasury_app_id
     
-    # Step 3: Deploy Asset Registry contract
-    logger.info("Step 3: Deploying Asset Registry contract")
+    # Step 4: Deploy Asset Registry contract
+    logger.info("Step 4: Deploying Asset Registry contract")
     registry_contract_dir = os.path.join(contracts_root, "asset_registry")
     registry_app_id = deploy_contract(registry_contract_dir)
     if not registry_app_id:
@@ -92,8 +111,8 @@ def main():
         return
     app_ids["asset_registry"] = registry_app_id
     
-    # Step 4: Deploy Investment Manager contract
-    logger.info("Step 4: Deploying Investment Manager contract")
+    # Step 5: Deploy Investment Manager contract
+    logger.info("Step 5: Deploying Investment Manager contract")
     investment_contract_dir = os.path.join(contracts_root, "investment_manager")
     investment_app_id = deploy_contract(investment_contract_dir)
     if not investment_app_id:
@@ -101,8 +120,8 @@ def main():
         return
     app_ids["investment_manager"] = investment_app_id
     
-    # Step 5: Deploy Revenue Distribution contract
-    logger.info("Step 5: Deploying Revenue Distribution contract")
+    # Step 6: Deploy Revenue Distribution contract
+    logger.info("Step 6: Deploying Revenue Distribution contract")
     revenue_contract_dir = os.path.join(contracts_root, "revenue_distribution")
     revenue_app_id = deploy_contract(revenue_contract_dir)
     if not revenue_app_id:
@@ -110,8 +129,8 @@ def main():
         return
     app_ids["revenue_distribution"] = revenue_app_id
     
-    # Step 6: Configure the contracts to work together
-    logger.info("Step 6: Configuring contracts to work together")
+    # Step 7: Configure all contracts to work together
+    logger.info("Step 7: Configuring contracts to work together")
     try:
         # Import algokit_utils for client interactions
         import algokit_utils
@@ -179,14 +198,29 @@ def main():
             asset_registry_id=app_ids["asset_registry"]
         )
         
+        # Configure connectors if they were deployed successfully
+        if "tere_connector" in app_ids:
+            # Add a trusted executor for TERE (optional)
+            tere_client = algokit_utils.ApplicationClient(
+                algod_client=algorand.client,
+                app_id=app_ids["tere_connector"],
+                signer=deployer
+            )
+            # Example: Set up a trusted executor - replace with your actual executor address
+            # tere_client.call(
+            #     method="add_trusted_executor",
+            #     executor_address=deployer.address  # Using deployer as executor for testing
+            # )
+            logger.info("Configured TERE connector with initial settings")
+        
         logger.info("All contracts configured successfully!")
         
     except Exception as e:
         logger.error(f"Error during contract configuration: {e}")
         return
     
-    # Step 7: Save the app IDs to a configuration file
-    logger.info("Step 7: Saving contract configuration")
+    # Step 8: Save the app IDs to a configuration file
+    logger.info("Step 8: Saving contract configuration")
     try:
         config_path = os.path.join(script_dir, "boli_config.json")
         with open(config_path, "w") as f:

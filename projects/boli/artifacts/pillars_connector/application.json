@@ -1,0 +1,141 @@
+{
+    "hints": {
+        "create()void": {
+            "call_config": {
+                "no_op": "CREATE"
+            }
+        },
+        "register_content(string,string,string)bool": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "verify_content(string,string)bool": {
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "get_content_location(string)string": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        },
+        "is_content_verified(string)bool": {
+            "read_only": true,
+            "call_config": {
+                "no_op": "CALL"
+            }
+        }
+    },
+    "source": {
+        "approval": "I3ByYWdtYSB2ZXJzaW9uIDgKaW50Y2Jsb2NrIDAgMQpieXRlY2Jsb2NrIDB4NzY2NTcyNjk2NjY5NjU2NCAweDY4NjE3MzY4IDB4IDB4MTUxZjdjNzUgMHgwMCAweDYxNjQ2ZDY5NmU1ZjYxNjQ2NDcyNjU3MzczIDB4NzQ3Mjc1NjUKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg0YzVjNjFiYSAvLyAiY3JlYXRlKCl2b2lkIgo9PQpibnogbWFpbl9sMTAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMApwdXNoYnl0ZXMgMHg5NzRhZDQ3YyAvLyAicmVnaXN0ZXJfY29udGVudChzdHJpbmcsc3RyaW5nLHN0cmluZylib29sIgo9PQpibnogbWFpbl9sOQp0eG5hIEFwcGxpY2F0aW9uQXJncyAwCnB1c2hieXRlcyAweGJhOTQxOTJhIC8vICJ2ZXJpZnlfY29udGVudChzdHJpbmcsc3RyaW5nKWJvb2wiCj09CmJueiBtYWluX2w4CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4ZDFiNjkzOGIgLy8gImdldF9jb250ZW50X2xvY2F0aW9uKHN0cmluZylzdHJpbmciCj09CmJueiBtYWluX2w3CnR4bmEgQXBwbGljYXRpb25BcmdzIDAKcHVzaGJ5dGVzIDB4MDg3NWUwNWEgLy8gImlzX2NvbnRlbnRfdmVyaWZpZWQoc3RyaW5nKWJvb2wiCj09CmJueiBtYWluX2w2CmVycgptYWluX2w2Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIGlzY29udGVudHZlcmlmaWVkY2FzdGVyXzkKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDc6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgZ2V0Y29udGVudGxvY2F0aW9uY2FzdGVyXzgKaW50Y18xIC8vIDEKcmV0dXJuCm1haW5fbDg6CnR4biBPbkNvbXBsZXRpb24KaW50Y18wIC8vIE5vT3AKPT0KdHhuIEFwcGxpY2F0aW9uSUQKaW50Y18wIC8vIDAKIT0KJiYKYXNzZXJ0CmNhbGxzdWIgdmVyaWZ5Y29udGVudGNhc3Rlcl83CmludGNfMSAvLyAxCnJldHVybgptYWluX2w5Ogp0eG4gT25Db21wbGV0aW9uCmludGNfMCAvLyBOb09wCj09CnR4biBBcHBsaWNhdGlvbklECmludGNfMCAvLyAwCiE9CiYmCmFzc2VydApjYWxsc3ViIHJlZ2lzdGVyY29udGVudGNhc3Rlcl82CmludGNfMSAvLyAxCnJldHVybgptYWluX2wxMDoKdHhuIE9uQ29tcGxldGlvbgppbnRjXzAgLy8gTm9PcAo9PQp0eG4gQXBwbGljYXRpb25JRAppbnRjXzAgLy8gMAo9PQomJgphc3NlcnQKY2FsbHN1YiBjcmVhdGVjYXN0ZXJfNQppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIGNyZWF0ZQpjcmVhdGVfMDoKcHJvdG8gMCAwCmJ5dGVjIDUgLy8gImFkbWluX2FkZHJlc3MiCmdsb2JhbCBDcmVhdG9yQWRkcmVzcwphcHBfZ2xvYmFsX3B1dAppbnRjXzEgLy8gMQpyZXR1cm4KCi8vIHJlZ2lzdGVyX2NvbnRlbnQKcmVnaXN0ZXJjb250ZW50XzE6CnByb3RvIDMgMQppbnRjXzAgLy8gMAp0eG4gU2VuZGVyCmJ5dGVjIDUgLy8gImFkbWluX2FkZHJlc3MiCmFwcF9nbG9iYWxfZ2V0Cj09Ci8vIFVuYXV0aG9yaXplZCBzZW5kZXIKYXNzZXJ0CmJ5dGVjXzEgLy8gImhhc2giCmZyYW1lX2RpZyAtMwpjb25jYXQKYm94X2RlbApwb3AKYnl0ZWNfMSAvLyAiaGFzaCIKZnJhbWVfZGlnIC0zCmNvbmNhdApmcmFtZV9kaWcgLTIKZXh0cmFjdCAyIDAKYm94X3B1dApieXRlY18wIC8vICJ2ZXJpZmllZCIKZnJhbWVfZGlnIC0zCmNvbmNhdApib3hfZGVsCnBvcApieXRlY18wIC8vICJ2ZXJpZmllZCIKZnJhbWVfZGlnIC0zCmNvbmNhdApwdXNoYnl0ZXMgMHg2NjYxNmM3MzY1IC8vICJmYWxzZSIKYm94X3B1dAppbnRjXzEgLy8gMQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gdmVyaWZ5X2NvbnRlbnQKdmVyaWZ5Y29udGVudF8yOgpwcm90byAyIDEKaW50Y18wIC8vIDAKYnl0ZWNfMSAvLyAiaGFzaCIKZnJhbWVfZGlnIC0yCmNvbmNhdApib3hfbGVuCnN0b3JlIDEKc3RvcmUgMApsb2FkIDEKLy8gQ29udGVudCBub3QgcmVnaXN0ZXJlZAphc3NlcnQKYnl0ZWNfMCAvLyAidmVyaWZpZWQiCmZyYW1lX2RpZyAtMgpjb25jYXQKYm94X2RlbApwb3AKYnl0ZWNfMCAvLyAidmVyaWZpZWQiCmZyYW1lX2RpZyAtMgpjb25jYXQKYnl0ZWMgNiAvLyAidHJ1ZSIKYm94X3B1dAppbnRjXzEgLy8gMQohCiEKZnJhbWVfYnVyeSAwCnJldHN1YgoKLy8gZ2V0X2NvbnRlbnRfbG9jYXRpb24KZ2V0Y29udGVudGxvY2F0aW9uXzM6CnByb3RvIDEgMQpieXRlY18yIC8vICIiCmJ5dGVjXzEgLy8gImhhc2giCmZyYW1lX2RpZyAtMQpjb25jYXQKYm94X2xlbgpzdG9yZSAzCnN0b3JlIDIKbG9hZCAzCi8vIENvbnRlbnQgbm90IHJlZ2lzdGVyZWQKYXNzZXJ0CmJ5dGVjXzEgLy8gImhhc2giCmZyYW1lX2RpZyAtMQpjb25jYXQKYm94X2dldApzdG9yZSA1CnN0b3JlIDQKbG9hZCA1CmFzc2VydApsb2FkIDQKZnJhbWVfYnVyeSAwCmZyYW1lX2RpZyAwCmxlbgppdG9iCmV4dHJhY3QgNiAwCmZyYW1lX2RpZyAwCmNvbmNhdApmcmFtZV9idXJ5IDAKcmV0c3ViCgovLyBpc19jb250ZW50X3ZlcmlmaWVkCmlzY29udGVudHZlcmlmaWVkXzQ6CnByb3RvIDEgMQppbnRjXzAgLy8gMApieXRlY18wIC8vICJ2ZXJpZmllZCIKZnJhbWVfZGlnIC0xCmNvbmNhdApib3hfbGVuCnN0b3JlIDcKc3RvcmUgNgpsb2FkIDcKYm56IGlzY29udGVudHZlcmlmaWVkXzRfbDIKaW50Y18wIC8vIDAKIQohCmZyYW1lX2J1cnkgMApiIGlzY29udGVudHZlcmlmaWVkXzRfbDMKaXNjb250ZW50dmVyaWZpZWRfNF9sMjoKYnl0ZWNfMCAvLyAidmVyaWZpZWQiCmZyYW1lX2RpZyAtMQpjb25jYXQKYm94X2dldApzdG9yZSA5CnN0b3JlIDgKbG9hZCA5CmFzc2VydApsb2FkIDgKYnl0ZWMgNiAvLyAidHJ1ZSIKPT0KIQohCmZyYW1lX2J1cnkgMAppc2NvbnRlbnR2ZXJpZmllZF80X2wzOgpyZXRzdWIKCi8vIGNyZWF0ZV9jYXN0ZXIKY3JlYXRlY2FzdGVyXzU6CnByb3RvIDAgMApjYWxsc3ViIGNyZWF0ZV8wCnJldHN1YgoKLy8gcmVnaXN0ZXJfY29udGVudF9jYXN0ZXIKcmVnaXN0ZXJjb250ZW50Y2FzdGVyXzY6CnByb3RvIDAgMAppbnRjXzAgLy8gMApieXRlY18yIC8vICIiCmR1cG4gMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQp0eG5hIEFwcGxpY2F0aW9uQXJncyAyCmZyYW1lX2J1cnkgMgp0eG5hIEFwcGxpY2F0aW9uQXJncyAzCmZyYW1lX2J1cnkgMwpmcmFtZV9kaWcgMQpmcmFtZV9kaWcgMgpmcmFtZV9kaWcgMwpjYWxsc3ViIHJlZ2lzdGVyY29udGVudF8xCmZyYW1lX2J1cnkgMApieXRlY18zIC8vIDB4MTUxZjdjNzUKYnl0ZWMgNCAvLyAweDAwCmludGNfMCAvLyAwCmZyYW1lX2RpZyAwCnNldGJpdApjb25jYXQKbG9nCnJldHN1YgoKLy8gdmVyaWZ5X2NvbnRlbnRfY2FzdGVyCnZlcmlmeWNvbnRlbnRjYXN0ZXJfNzoKcHJvdG8gMCAwCmludGNfMCAvLyAwCmJ5dGVjXzIgLy8gIiIKZHVwCnR4bmEgQXBwbGljYXRpb25BcmdzIDEKZnJhbWVfYnVyeSAxCnR4bmEgQXBwbGljYXRpb25BcmdzIDIKZnJhbWVfYnVyeSAyCmZyYW1lX2RpZyAxCmZyYW1lX2RpZyAyCmNhbGxzdWIgdmVyaWZ5Y29udGVudF8yCmZyYW1lX2J1cnkgMApieXRlY18zIC8vIDB4MTUxZjdjNzUKYnl0ZWMgNCAvLyAweDAwCmludGNfMCAvLyAwCmZyYW1lX2RpZyAwCnNldGJpdApjb25jYXQKbG9nCnJldHN1YgoKLy8gZ2V0X2NvbnRlbnRfbG9jYXRpb25fY2FzdGVyCmdldGNvbnRlbnRsb2NhdGlvbmNhc3Rlcl84Ogpwcm90byAwIDAKYnl0ZWNfMiAvLyAiIgpkdXAKdHhuYSBBcHBsaWNhdGlvbkFyZ3MgMQpmcmFtZV9idXJ5IDEKZnJhbWVfZGlnIDEKY2FsbHN1YiBnZXRjb250ZW50bG9jYXRpb25fMwpmcmFtZV9idXJ5IDAKYnl0ZWNfMyAvLyAweDE1MWY3Yzc1CmZyYW1lX2RpZyAwCmNvbmNhdApsb2cKcmV0c3ViCgovLyBpc19jb250ZW50X3ZlcmlmaWVkX2Nhc3Rlcgppc2NvbnRlbnR2ZXJpZmllZGNhc3Rlcl85Ogpwcm90byAwIDAKaW50Y18wIC8vIDAKYnl0ZWNfMiAvLyAiIgp0eG5hIEFwcGxpY2F0aW9uQXJncyAxCmZyYW1lX2J1cnkgMQpmcmFtZV9kaWcgMQpjYWxsc3ViIGlzY29udGVudHZlcmlmaWVkXzQKZnJhbWVfYnVyeSAwCmJ5dGVjXzMgLy8gMHgxNTFmN2M3NQpieXRlYyA0IC8vIDB4MDAKaW50Y18wIC8vIDAKZnJhbWVfZGlnIDAKc2V0Yml0CmNvbmNhdApsb2cKcmV0c3Vi",
+        "clear": "I3ByYWdtYSB2ZXJzaW9uIDgKcHVzaGludCAwIC8vIDAKcmV0dXJu"
+    },
+    "state": {
+        "global": {
+            "num_byte_slices": 1,
+            "num_uints": 0
+        },
+        "local": {
+            "num_byte_slices": 0,
+            "num_uints": 0
+        }
+    },
+    "schema": {
+        "global": {
+            "declared": {
+                "admin_address": {
+                    "type": "bytes",
+                    "key": "admin_address",
+                    "descr": "Address of the admin"
+                }
+            },
+            "reserved": {}
+        },
+        "local": {
+            "declared": {},
+            "reserved": {}
+        }
+    },
+    "contract": {
+        "name": "PillarsStorageConnector",
+        "methods": [
+            {
+                "name": "create",
+                "args": [],
+                "returns": {
+                    "type": "void"
+                },
+                "desc": "Initialize the connector"
+            },
+            {
+                "name": "register_content",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "content_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "pillars_location"
+                    },
+                    {
+                        "type": "string",
+                        "name": "content_hash"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Register content stored in Pillars"
+            },
+            {
+                "name": "verify_content",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "content_id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "verification_proof"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Verify content against proof from Pillars"
+            },
+            {
+                "name": "get_content_location",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "content_id"
+                    }
+                ],
+                "returns": {
+                    "type": "string"
+                },
+                "desc": "Get the Pillars location for registered content"
+            },
+            {
+                "name": "is_content_verified",
+                "args": [
+                    {
+                        "type": "string",
+                        "name": "content_id"
+                    }
+                ],
+                "returns": {
+                    "type": "bool"
+                },
+                "desc": "Check if content has been verified"
+            }
+        ],
+        "networks": {},
+        "desc": "Connector for Pillars Verifiable Storage"
+    },
+    "bare_call_config": {}
+}
